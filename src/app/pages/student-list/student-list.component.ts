@@ -1,12 +1,12 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { Database, ref, get, update } from '@angular/fire/database';
 import { AuthService } from '../../services/auth.service'; 
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-student-list',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,NgIf],
   templateUrl: './student-list.component.html',
   styleUrl: './student-list.component.css'
 })
@@ -46,4 +46,5 @@ export class StudentListComponent {
       console.error('Error unlinking student:', error);
     }
   }
+
 }

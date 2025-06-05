@@ -1,5 +1,13 @@
 <div class="student-list">
-    <h2>Student List</h2>
+    <div class="student-list-header" style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px;">
+      <h3 style="margin: 0;">My Students</h3>
+      <button class="btn-primary">
+        <span style="display: inline-flex; align-items: center;">
+          <img src="assets/icons/plus.svg" alt="Plus" width="18" height="18" style="margin-right: 8px;">
+          Register student
+        </span>
+      </button>
+    </div>
   
     <div *ngIf="loading">Loading students...</div>
     <div *ngIf="!loading && students.length === 0">No students found.</div>
@@ -29,4 +37,3 @@
       </tbody>
     </table>
   </div>
-  

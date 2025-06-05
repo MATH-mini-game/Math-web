@@ -1,0 +1,27 @@
+.breadcrumbs {
+  display: flex;
+  align-items: center;
+  font-size: 0.95rem;
+  color: var(--gray-700);
+  gap: 4px;
+}
+
+.breadcrumb-link {
+  color: var(--secondary-blue);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.breadcrumb-link:hover {
+  text-decoration: underline;
+}
+
+.breadcrumb-label.active {
+  font-weight: bold;
+  color: var(--gray-900);
+}
+
+.breadcrumb-separator {
+  margin: 0 6px;
+  color: var(--gray-500);
+}

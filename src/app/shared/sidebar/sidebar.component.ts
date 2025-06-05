@@ -1,16 +1,17 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter,Input, Output } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
-import { NgIf } from '@angular/common';
+import { NgIf, NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [NgIf],
+  imports: [NgIf, NgClass],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.css'
 })
 export class SidebarComponent {
   userRole: string | null = null;
+  @Input() selectedSection: string = 'dashboard'; // This is a string, not an EventEmitter!
   @Output() sectionSelected = new EventEmitter<string>();
 
   constructor(private auth: AuthService) {}

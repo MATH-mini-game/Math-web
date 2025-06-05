@@ -1,7 +1,108 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: #f7f9fc;
+    font-family:"poppins", sans-serif;
     margin: 0;
     padding: 0;
   }
-  
+*{
+  font-family: "Poppins", sans-serif;
+}
+/* Colors */
+:root {
+  --gray-100: #E8EAEC;
+  --gray-300: #D4D9D9;
+  --gray-500: #ACB1B1;
+  --gray-700: #767C7C;
+  --gray-900: #383E41;
+  --white: #fff;
+  --black: #272D40;
+  --primary-orange: #E54923;
+  --secondary-blue: #78A6D2;
+}
+
+/* Typography */
+h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 0 0 1rem 0;
+}
+h2 {
+  font-size: 2rem;
+  font-weight: 600;
+  margin: 0 0 0.75rem 0;
+}
+h3 {
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin: 0 0 0.5rem 0;
+}
+h4 {
+  font-size: 1.25rem;
+  font-weight: 500;
+  margin: 0 0 0.5rem 0;
+}
+h5 {
+  font-size: 1rem;
+  font-weight: 500;
+  margin: 0 0 0.5rem 0;
+}
+p {
+  font-size: 1rem;
+  margin: 0 0 1rem 0;
+}
+.p-sm {
+  font-size: 0.875rem;
+  margin: 0 0 0.75rem 0;
+}
+
+/* Example utility classes for colors */
+.text-gray-100 { color: var(--gray-100); }
+.text-gray-300 { color: var(--gray-300); }
+.text-gray-500 { color: var(--gray-500); }
+.text-gray-700 { color: var(--gray-700); }
+.text-gray-900 { color: var(--gray-900); }
+.text-white    { color: var(--white); }
+.text-black    { color: var(--black); }
+.text-primary  { color: var(--primary-orange); }
+.text-secondary{ color: var(--secondary-blue); }
+
+.bg-gray-100 { background: var(--gray-100); }
+.bg-gray-300 { background: var(--gray-300); }
+.bg-gray-500 { background: var(--gray-500); }
+.bg-gray-700 { background: var(--gray-700); }
+.bg-gray-900 { background: var(--gray-900); }
+.bg-white    { background: var(--white); }
+.bg-black    { background: var(--black); }
+.bg-primary  { background: var(--primary-orange); }
+.bg-secondary{ background: var(--secondary-blue); }
+
+/* Button Styles */
+.btn-primary {
+  background: var(--primary-orange);
+  color: var(--white);
+  border: none;
+  border-radius: 20px;
+  padding: 12px 42px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-primary:hover {
+  background: #c93d1c; /* Slightly darker for hover */
+}
+
+.btn-secondary {
+  background: none;
+  color: var(--gray-900);
+  border: 1px solid var(--gray-300);
+  border-radius: 20px;
+  padding: 12px 42px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.btn-secondary:hover {
+  background: var(--gray-300);
+}

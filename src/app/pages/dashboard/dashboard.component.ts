@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, output } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { NgIf } from '@angular/common';
 import { RoleManagementComponent } from '../role-management/role-management.component';
@@ -9,39 +9,36 @@ import { SidebarComponent } from '../../shared/sidebar/sidebar.component';
 import { TestCreationComponent } from '../test-creation/test-creation.component';
 import { TestListComponent } from '../test-list/test-list.component';
 import { CreateParentComponent } from '../create-parent/create-parent.component';
+import { BreadcrumbsComponent } from '../../shared/breadcrumbs/breadcrumbs.component';
+import { TeacherDashboardComponent } from '../teacher-dashboard/teacher-dashboard.component';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [NgIf, NavBarComponent, SidebarComponent, 
+  imports: [NgIf, SidebarComponent, 
     RoleManagementComponent, StudentRegistrationComponent, 
     StudentListComponent, TestCreationComponent, 
-    TestListComponent, CreateParentComponent],
+    TestListComponent, CreateParentComponent, BreadcrumbsComponent,TeacherDashboardComponent],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })
 export class DashboardComponent {
   userRole: string | null = null;
   loading = true;
-  selectedSection = 'student-list'; // default view for teachers
-
+  selectedSection = 'dashboard';
+  sectionSelected = new EventEmitter<string>();
   constructor(private auth: AuthService) {}
 
   ngOnInit() {
     this.auth.getCurrentUserWithRole().subscribe(user => {
       if (user) this.userRole = user.role;
       this.loading = false;
-      if (this.userRole === "Teacher") {
-        this.selectedSection = 'student-list';
-      }
-      else if (this.userRole === "Admistrator" || this.userRole === "Principal")
-      {
-        this.selectedSection = 'user-list';
-      }
+      
     });
   }
 
   onSectionSelected(section: string) {
     this.selectedSection = section;
+    console.log(section)
   }
     
 }
