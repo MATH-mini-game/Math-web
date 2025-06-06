@@ -1,8 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output, output } from '@angular/core';
 import { StudentListComponent } from '../student-list/student-list.component';
 import { NgIf } from '@angular/common';
 import { StudentRegistrationComponent } from '../student-registration/student-registration.component';
-import test from 'node:test';
 import { TestListComponent } from '../test-list/test-list.component';
 
 @Component({
@@ -12,11 +11,10 @@ import { TestListComponent } from '../test-list/test-list.component';
   styleUrl: './teacher-dashboard.component.css'
 })
 export class TeacherDashboardComponent {
-  @Input() selectedSection: string = 'dashboard'; // Default section
+  @Input() selectedSection: string = 'dashboard'; 
 
-
-  // Handle navigation within teacher dashboard
-  onNavigate(section: string) {
+  
+  onSectionSelected(section: string) {
     this.selectedSection = section;
   }
   

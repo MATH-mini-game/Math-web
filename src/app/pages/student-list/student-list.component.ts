@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, input, OnInit, Output, EventEmitter } from '@angular/core';
 import { Database, ref, get, update } from '@angular/fire/database';
 import { AuthService } from '../../services/auth.service'; 
 import { CommonModule, NgIf } from '@angular/common';
@@ -17,6 +17,7 @@ export class StudentListComponent {
   students: any[] = [];
   loading = true;
   teacherUID = '';
+  @Output() sectionSelected = new EventEmitter<string>();
 
   ngOnInit(): void {
     this.auth.getCurrentUserWithRole().subscribe(async (user) => {
@@ -46,5 +47,8 @@ export class StudentListComponent {
       console.error('Error unlinking student:', error);
     }
   }
-
+  registerStudent() {
+    this.sectionSelected.emit('registerStudent');
+  }
+  
 }

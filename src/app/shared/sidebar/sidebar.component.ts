@@ -25,4 +25,7 @@ export class SidebarComponent {
   select(section: string) {
     this.sectionSelected.emit(section);
   }
+  logout() {
+    this.auth.logout().then(() => window.location.reload());
+  }
 }

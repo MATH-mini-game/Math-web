@@ -45,6 +45,11 @@
   .nav-links button.active,.nav-links button:hover {
     background: var(--gray-300);
   }
+  .nav-links button.active{
+    color: var(--black);
+    font-weight: 900;
+
+  }
   
   .nav-link-icon {
     background: #fff;

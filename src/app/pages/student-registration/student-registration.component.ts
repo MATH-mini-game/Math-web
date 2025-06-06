@@ -1,5 +1,5 @@
 import { NgIf } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, EventEmitter, inject, Output } from '@angular/core';
 import { Database, ref, set } from '@angular/fire/database';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import jsPDF from 'jspdf';
@@ -34,7 +34,7 @@ export class StudentRegistrationComponent {
   qrData: string = '';
   qrImage: string = '';
   linkedTeacherId: string = '';
- 
+ @Output() sectionSelected = new EventEmitter<string>();
   async onSubmit() {
     if (this.studentForm.invalid) return;
   
@@ -58,6 +58,8 @@ export class StudentRegistrationComponent {
   
         await this.downloadPDF(studentData);
         this.studentForm.reset();
+        //redirect to student list or another section if needed
+        this.sectionSelected.emit('studentList');
   
       } catch (err) {
         console.error(err);

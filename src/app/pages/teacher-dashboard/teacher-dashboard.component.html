@@ -1,3 +1,5 @@
-<app-student-list *ngIf="selectedSection === 'student'"></app-student-list>
+<app-student-list *ngIf="selectedSection === 'student'"
+(sectionSelected)="onSectionSelected($event)"
+></app-student-list>
 <app-test-list *ngIf="selectedSection === 'test-list'"></app-test-list>
 <app-student-registration *ngIf="selectedSection === 'registerStudent'"></app-student-registration>

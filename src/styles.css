@@ -8,6 +8,12 @@ body {
 *{
   font-family: "Poppins", sans-serif;
 }
+/* Global Styles */
+
+*::selection {
+  background: var(--primary-orange);
+  color: var(--white);
+}
 /* Colors */
 :root {
   --gray-100: #E8EAEC;

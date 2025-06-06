@@ -10,7 +10,9 @@
         [ngClass]="{'active': selectedSection === 'dashboard'}"
       >
         <div class="nav-link-icon">
-          <img src="icons/chart-pie-slice-fill.svg" alt="Dashboard" width="20" height="20">
+          <img 
+            [src]="'icons/chart-pie-slice' + (selectedSection === 'dashboard' ? '-fill' : '') + '.svg'" 
+            alt="Dashboard" width="20" height="20">
         </div>
         Dashboard
       </button>
@@ -20,7 +22,9 @@
         [ngClass]="{'active': selectedSection === 'student'}"
       >
         <div class="nav-link-icon">
-          <img src="icons/student-fill.svg" alt="Students" width="20" height="20">
+          <img 
+            [src]="'icons/student' + (selectedSection === 'student' ? '-fill' : '') + '.svg'" 
+            alt="Students" width="20" height="20">
         </div>
         Students
       </button>
@@ -30,7 +34,9 @@
         [ngClass]="{'active': selectedSection === 'test-list'}"
       >
         <div class="nav-link-icon">
-          <img src="icons/note-fill.svg" alt="Tests" width="20" height="20">
+          <img 
+            [src]="'icons/note' + (selectedSection === 'test-list' ? '-fill' : '') + '.svg'" 
+            alt="Tests" width="20" height="20">
         </div>
         Tests
       </button>
@@ -40,7 +46,9 @@
         [ngClass]="{'active': selectedSection === 'user-list'}"
       >
         <div class="nav-link-icon">
-          <img src="icons/pending-users.svg" alt="Pending Users" width="20" height="20">
+          <img 
+            [src]="'icons/pending-users' + (selectedSection === 'user-list' ? '-fill' : '') + '.svg'" 
+            alt="Pending Users" width="20" height="20">
         </div>
         View Pending Users
       </button>
@@ -50,7 +58,9 @@
         [ngClass]="{'active': selectedSection === 'parent-create'}"
       >
         <div class="nav-link-icon">
-          <img src="icons/parent-account.svg" alt="Create Parent Account" width="20" height="20">
+          <img 
+            [src]="'icons/parent-account' + (selectedSection === 'parent-create' ? '-fill' : '') + '.svg'" 
+            alt="Create Parent Account" width="20" height="20">
         </div>
         Create Parent Account
       </button>
@@ -61,7 +71,7 @@
       <img src="icons/gear.svg" alt="Settings" width="20" height="20" style="vertical-align: middle; margin-right: 8px;">
       Settings
     </button>
-    <button class="btn-primary">
+    <button class="btn-primary" (click)="logout()">
       <img src="icons/sign-out.svg" alt="Logout" width="20" height="20" style="vertical-align: middle; margin-right: 8px;">
       Logout
     </button>

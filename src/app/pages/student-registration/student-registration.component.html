@@ -1,37 +1,55 @@
 <div class="student-registration">
-    <h2>Student Registration</h2>
+    <h2>Register a new student: </h2>
+    
     <form [formGroup]="studentForm" (ngSubmit)="onSubmit()" class="student-form">
-    <label>First Name</label>
-    <input type="text" formControlName="firstName" required />
+      <div class="form-group">
+        <label>First Name</label>
+        <input type="text" formControlName="firstName" required placeholder="Enter the student's first name..."/>
+      </div>
 
-    <label>Last Name</label>
-    <input type="text" formControlName="lastName" required />
+      <div class="form-group">
+        <label>Last Name</label>
+        <input type="text" formControlName="lastName" required placeholder="Enter the student's last name..."/>
+      </div>
 
-    <label>Birth Date</label>
-    <input type="date" formControlName="birthday" required />
+      <div class="form-group">
+        <label>Birth Date</label>
+        <input type="date" formControlName="birthday" required />
+      </div>
 
-    <label>Grade</label>
-    <select formControlName="schoolGrade">
-        <option value="1">Grade 1</option>
-        <option value="2">Grade 2</option>
-        <option value="3">Grade 3</option>
-        <option value="4">Grade 4</option>
-        <option value="5">Grade 5</option>
-        <option value="6">Grade 6</option>
-    </select>
+      <div class="form-group">
+        <label>Grade</label>
+        <select formControlName="schoolGrade">
+            <option value="1">Grade 1</option>
+            <option value="2">Grade 2</option>
+            <option value="3">Grade 3</option>
+            <option value="4">Grade 4</option>
+            <option value="5">Grade 5</option>
+            <option value="6">Grade 6</option>
+        </select>
+      </div>
 
-    <label>Gender</label>
-    <select formControlName="gender">
-        <option value="Male">Male</option>
-        <option value="Female">Female</option>
-    </select>
+      <div class="form-group">
+        <label>Gender</label>
+        <select formControlName="gender">
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+        </select>
+      </div>
 
-    <label>Password (4-digit PIN)</label>
-    <input type="text" formControlName="password" maxlength="4" placeholder="1234" />
+      <div  class="form-group">
+        <label>Password (4-digit PIN)</label>
+        <input type="text" formControlName="password" maxlength="4" placeholder="1234" />
+      </div>
 
-    <button type="submit" [disabled]="studentForm.invalid">Register Student</button>
+      <button type="submit" [disabled]="studentForm.invalid" class="btn-primary">
+        <span style="display: inline-flex; align-items: center;">
+          <img src="icons/plus.svg" alt="Plus" width="18" height="18" style="margin-right: 8px;">
+          Register student
+        </span>
+      </button>
 
-    <p *ngIf="successMessage" class="success">{{ successMessage }}</p>
-    <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
+      <p *ngIf="successMessage" class="success">{{ successMessage }}</p>
+      <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
     </form>
 </div>
