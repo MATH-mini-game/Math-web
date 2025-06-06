@@ -11,13 +11,14 @@ import { TestListComponent } from '../test-list/test-list.component';
 import { CreateParentComponent } from '../create-parent/create-parent.component';
 import { BreadcrumbsComponent } from '../../shared/breadcrumbs/breadcrumbs.component';
 import { TeacherDashboardComponent } from '../teacher-dashboard/teacher-dashboard.component';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
   imports: [NgIf, SidebarComponent, 
     RoleManagementComponent, StudentRegistrationComponent, 
     StudentListComponent, TestCreationComponent, 
-    TestListComponent, CreateParentComponent, BreadcrumbsComponent,TeacherDashboardComponent],
+    TestListComponent, CreateParentComponent, BreadcrumbsComponent,TeacherDashboardComponent, RouterOutlet],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })

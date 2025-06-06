@@ -1,27 +1,29 @@
 .breadcrumbs {
+  padding: 32px;
+  color: var(--gray-700, #616161);
+  font-size: 1rem;
   display: flex;
   align-items: center;
-  font-size: 0.95rem;
-  color: var(--gray-700);
-  gap: 4px;
 }
 
 .breadcrumb-link {
-  color: var(--secondary-blue);
+  color: var(--gray-700, #616161);
   text-decoration: none;
-  cursor: pointer;
+  font-weight: 500;
+  transition: color 0.2s;
 }
 
 .breadcrumb-link:hover {
   text-decoration: underline;
-}
-
-.breadcrumb-label.active {
-  font-weight: bold;
-  color: var(--gray-900);
+  color: var(--black, #000);
 }
 
 .breadcrumb-separator {
-  margin: 0 6px;
-  color: var(--gray-500);
+  margin: 0 8px;
+  color: var(--gray-500, #bdbdbd);
+}
+
+.breadcrumb-label.active {
+  color: var(--black, #000);
+  font-weight: bold;
 }

@@ -3,31 +3,13 @@
 </div>
 
 <div *ngIf="!loading" class="dashboard-layout bg-gray-100">
-  <app-sidebar
-    [selectedSection]="selectedSection"
-    (sectionSelected)="selectedSection = $event">
-  </app-sidebar>
+  <app-sidebar></app-sidebar>
+    
   <div class="main-content bg-gray-100">
     <!-- Breadcrumbs placeholder -->
-    <!-- <app-breadcrumbs [breadcrumbs]="[
-      { label: 'Home', route: '/' },
-      { label: 'Dashboard', route: '/dashboard' },
-      { label: 'Students' }
-    ]"></app-breadcrumbs> -->
+    <app-breadcrumbs></app-breadcrumbs>
     <div class="main-section">
-      <ng-container *ngIf="userRole === 'Administrator' || userRole === 'Principal'">
-        <app-role-management *ngIf="selectedSection === 'user-list'"></app-role-management>
-        <app-create-parent *ngIf="selectedSection === 'parent-create'"></app-create-parent>
-      </ng-container>
-      <ng-container *ngIf="userRole === 'Teacher'">
-        <app-teacher-dashboard
-        [selectedSection]="selectedSection"
-        ></app-teacher-dashboard>
-        </ng-container>
-      <ng-container *ngIf="userRole === 'Parent'">
-        <p>Your role: {{ userRole }}</p>
-        <p>Please download and use our app "AppName".</p>
-      </ng-container>
+      <router-outlet></router-outlet>
     </div>
   </div>
 </div>

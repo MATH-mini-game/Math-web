@@ -1,1 +1,24 @@
-/home
+<nav class="breadcrumbs">
+  <ng-container *ngFor="let crumb of breadcrumbs; let i = index; let last = last">
+    <ng-container *ngIf="i === 0">
+      <a [routerLink]="crumb.route" class="breadcrumb-link" style="display: inline-flex; align-items: center;">
+        <img
+          [src]="'icons/chart-pie-slice' + (last ? '-fill' : '') + '.svg'"
+          alt="Dashboard"
+          width="20"
+          height="20"
+          style="margin-right: 8px;color: var(--gray-700);"
+        />
+        {{ crumb.label }}
+      </a>
+      <span class="breadcrumb-separator" *ngIf="!last">/</span>
+    </ng-container>
+    <ng-container *ngIf="i > 0 && !last && crumb.route">
+      <a [routerLink]="crumb.route" class="breadcrumb-link">{{ crumb.label }}</a>
+      <span class="breadcrumb-separator">/</span>
+    </ng-container>
+    <ng-container *ngIf="last && i > 0">
+      <span class="breadcrumb-label active">{{ crumb.label }}</span>
+    </ng-container>
+  </ng-container>
+</nav>

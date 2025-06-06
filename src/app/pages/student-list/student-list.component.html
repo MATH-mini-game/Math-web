@@ -1,12 +1,14 @@
 <div class="student-list">
     <div class="student-list-header" style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px;">
       <h3 style="margin: 0;">My Students</h3>
-      <button class="btn-primary" (click)="registerStudent()" style="display: inline-flex; align-items: center;">
+      <a class="btn-primary"
+      [routerLink]="['/dashboard/students/register']"
+      style="display: inline-flex; align-items: center; text-decoration: none;">
         <span style="display: inline-flex; align-items: center;">
           <img src="icons/plus.svg" alt="Plus" width="18" height="18" style="margin-right: 8px;">
           Register student
         </span>
-      </button>
+      </a>
     </div>
   
     <div *ngIf="loading">Loading students...</div>
@@ -15,25 +17,21 @@
     <table *ngIf="!loading && students.length > 0">
       <thead>
         <tr>
-          <th>First Name</th>
-          <th>Last Name</th>
+          <th>Student Name</th>
           <th>Birth Date</th>
-          <th>Grade</th>
-          <th>Gender</th>
-          <th>Actions</th>
+          <th>School Grade</th>
+          <th>Math Grade</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let student of students">
-          <td>{{ student.firstName }}</td>
-          <td>{{ student.lastName }}</td>
+        <tr *ngFor="let student of students"
+        [routerLink]="['/dashboard/students', student.uid]"
+        style="cursor: pointer;">
+          <td>{{ student.firstName }} {{ student.lastName }}</td>
           <td>{{ student.birthday || 'N/A' }}</td>
           <td>{{ student.schoolGrade }}</td>
-          <td>{{ student.gender }}</td>
-          <td>
-            <button (click)="unlinkStudent(student.uid)">Unlink</button>
-          </td>
+          <td>{{ student.mathGrade || 'N/A' }}</td>
         </tr>
       </tbody>
     </table>
-  </div>
+</div>

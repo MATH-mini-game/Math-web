@@ -1,30 +1,61 @@
-import { Component, EventEmitter,Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
-import { NgIf, NgClass } from '@angular/common';
+import { NgIf, NgClass, NgFor } from '@angular/common';
+import { RouterLink, Router } from '@angular/router';
+
+interface NavItem {
+  path: string;
+  icon: string;
+  label: string;
+}
 
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [NgIf, NgClass],
+  imports: [NgIf, NgClass, NgFor, RouterLink],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.css'
 })
 export class SidebarComponent {
+  navItems: NavItem[] = [];
   userRole: string | null = null;
-  @Input() selectedSection: string = 'dashboard'; // This is a string, not an EventEmitter!
-  @Output() sectionSelected = new EventEmitter<string>();
 
-  constructor(private auth: AuthService) {}
+  constructor(private auth: AuthService, private router: Router) {}
 
   ngOnInit() {
     this.auth.getCurrentUserWithRole().subscribe(user => {
-      if (user) this.userRole = user.role;
+      if (user) this.userRole = user.role?.toLowerCase();
+      this.updateNavItems();
     });
   }
 
-  select(section: string) {
-    this.sectionSelected.emit(section);
+  updateNavItems() {
+    const roleSpecificItems: { [key: string]: NavItem[] } = {
+      administrator: [
+        { path: '', icon: 'dashboard', label: 'Dashboard' },
+        { path: 'students', icon: 'people', label: 'Students' },
+        { path: 'tests', icon: 'assignment', label: 'Tests' }
+      ],
+      teacher: [
+        { path: '', icon: 'chart-pie-slice', label: 'Dashboard' },
+        { path: 'students', icon: 'student', label: 'Students' },
+        { path: 'tests', icon: 'note', label: 'Tests' }
+      ]
+      // Add more roles as needed
+    };
+
+    this.navItems = this.userRole ? roleSpecificItems[this.userRole] || [] : [];
   }
+
+  isActive(path: string): boolean {
+    if (path === '' || path === 'dashboard') {
+      // Active only if at /dashboard or /dashboard/
+      return this.router.url === '/dashboard' || this.router.url === '/dashboard/';
+    }
+    // For subpaths, check if the URL starts with /dashboard/path
+    return this.router.url.startsWith(`/dashboard/${path}`);
+  }
+
   logout() {
     this.auth.logout().then(() => window.location.reload());
   }

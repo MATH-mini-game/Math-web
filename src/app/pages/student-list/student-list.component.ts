@@ -2,11 +2,12 @@ import { Component, inject, input, OnInit, Output, EventEmitter } from '@angular
 import { Database, ref, get, update } from '@angular/fire/database';
 import { AuthService } from '../../services/auth.service'; 
 import { CommonModule, NgIf } from '@angular/common';
+import { Router ,RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-student-list',
   standalone: true,
-  imports: [CommonModule,NgIf],
+  imports: [CommonModule,NgIf, RouterLink],
   templateUrl: './student-list.component.html',
   styleUrl: './student-list.component.css'
 })
