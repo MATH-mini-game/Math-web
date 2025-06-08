@@ -1,1 +1,38 @@
-<p>student-details works!</p>
+<div class="student-details">
+  <h3>{{ student?.firstName }} {{ student?.lastName }}'s insights</h3>
+  <div class="student-info-container">
+    <div class="student-info-left">
+      <div><strong>Full Name:</strong> {{ student?.firstName }} {{ student?.lastName }}</div>
+      <div><strong>Birthday:</strong> {{ student?.birthday || 'N/A' }}</div>
+      <div><strong>School Grade:</strong> {{ student?.schoolGrade }}</div>
+      <div><strong>Math Grade:</strong> {{ student?.mathGrade || 'N/A' }}</div>
+      <div><strong>Gender:</strong> {{ student?.gender || 'N/A' }}</div>
+      <!-- Add more fields as needed -->
+    </div>
+    <div class="student-info-right">
+      <button class="btn-secondary" 
+        [routerLink]="['/dashboard/students/', student?.uid, 'edit']">
+        <img src="icons/note-pencil.svg" alt="Edit" width="18" height="18" style="margin-right: 8px;">
+        Edit Infos
+      </button>
+      <button class="btn-primary" (click)="unlinkStudent()">
+        <img src="icons/link-break.svg" alt="Unlink" width="18" height="18" style="margin-right: 8px;">
+        Unlink Student
+      </button>
+    </div>
+  </div>
+
+  <div class="student-tests-section" *ngIf="assignedTests && assignedTests.length > 0">
+    <h4 style="margin-top: 40px;">Assigned Tests for Grade {{ student?.schoolGrade }}</h4>
+    <ul class="assigned-tests-list">
+      <li *ngFor="let test of assignedTests">
+        <strong>{{ test.title }}</strong>
+        <span *ngIf="test.date"> - {{ test.date | date }}</span>
+      </li>
+    </ul>
+  </div>
+  <div class="student-tests-section" *ngIf="assignedTests && assignedTests.length === 0">
+    <h4 style="margin-top: 40px;">Assigned Tests for Grade {{ student?.schoolGrade }}</h4>
+    <p>No tests assigned for this grade.</p>
+  </div>
+</div>

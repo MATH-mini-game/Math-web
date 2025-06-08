@@ -10,11 +10,36 @@
         </span>
       </a>
     </div>
-  
+
+    <div style="display: flex; gap: 16px; margin-bottom: 24px; align-items: center;" class="student-filter">
+      <div class="search-container">
+        <input
+          type="text"
+          [(ngModel)]="searchTerm"
+          (input)="filterStudents()"
+          placeholder="Type the student’s name..."
+        />
+        <img
+          src="icons/magnifying-glass.svg"
+          alt="Search"
+          class="search-icon"
+        />
+      </div>
+      <select [(ngModel)]="selectedGrade" (change)="filterStudents()">
+        <option value="">All Grades</option>
+        <option value="1">Grade 1</option>
+        <option value="2">Grade 2</option>
+        <option value="3">Grade 3</option>
+        <option value="4">Grade 4</option>
+        <option value="5">Grade 5</option>
+        <option value="6">Grade 6</option>
+      </select>
+    </div>
+
     <div *ngIf="loading">Loading students...</div>
-    <div *ngIf="!loading && students.length === 0">No students found.</div>
-  
-    <table *ngIf="!loading && students.length > 0">
+    <div *ngIf="!loading && filteredStudents.length === 0">No students found.</div>
+
+    <table *ngIf="!loading && filteredStudents.length > 0">
       <thead>
         <tr>
           <th>Student Name</th>
@@ -24,9 +49,9 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let student of students"
-        [routerLink]="['/dashboard/students', student.uid]"
-        style="cursor: pointer;">
+        <tr *ngFor="let student of filteredStudents"
+            [routerLink]="['/dashboard/students', student.uid]"
+            style="cursor: pointer;">
           <td>{{ student.firstName }} {{ student.lastName }}</td>
           <td>{{ student.birthday || 'N/A' }}</td>
           <td>{{ student.schoolGrade }}</td>

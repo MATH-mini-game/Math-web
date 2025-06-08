@@ -32,6 +32,13 @@ export const routes: Routes = [
             loadComponent: () => import('./pages/student-details/student-details.component').then(m => m.StudentDetailsComponent),
             canActivate: [AuthGuard],
             data: { breadcrumb: 'Student Details' }
+            
+          },
+          {
+            path: ':id/edit',
+            loadComponent: () => import('./pages/student-edit/student-edit.component').then(m => m.StudentEditComponent),
+            canActivate: [AuthGuard],
+            data: { breadcrumb: 'Edit Student' }
           }
         ]
       },

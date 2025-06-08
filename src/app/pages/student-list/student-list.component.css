@@ -41,4 +41,73 @@ table {
   tbody tr:hover {
     background: var(--gray-100, #f5f5f5);
   }
+  .student-filter {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 24px;
+    align-items: center;
+  }
 
+.student-filter .search-container {
+  position: relative;
+  flex: 1;
+  min-width: 300px;
+}
+
+.student-filter input {
+  width: 100%;
+  background: var(--gray-300, #e0e0e0);
+  border: none;
+  border-radius: 20px;
+  padding: 12px 16px 12px 44px;
+  font-size: 1rem;
+  outline: none;
+  box-sizing: border-box;
+  transition: box-shadow 0.2s;
+  flex: 1;
+}
+
+.student-filter input:focus,.student-filter select:focus {
+  box-shadow: 0 0 0 2px var(--gray-700);
+}
+
+.student-filter .search-icon {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  opacity: 0.7;
+  width: 18px;
+  height: 18px;
+}
+
+.student-filter select {
+  background: var(--gray-300, #e0e0e0);
+  border: none;
+  border-radius: 20px;
+  padding: 12px 40px 12px 16px;
+  font-size: 1rem;
+  outline: none;
+  min-width: 160px;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("data:image/svg+xml;utf8,<svg fill='gray' height='16' viewBox='0 0 20 20' width='16' xmlns='http://www.w3.org/2000/svg'><path d='M7.293 7.293a1 1 0 011.414 0L10 8.586l1.293-1.293a1 1 0 111.414 1.414l-2 2a1 1 0 01-1.414 0l-2-2a1 1 0 010-1.414z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  background-size: 18px 18px;
+}
+
+@media (max-width: 600px) {
+  .student-filter {
+    flex-direction: column;
+    gap: 12px;
+    align-items: stretch;
+  }
+  .student-filter .search-container,
+  .student-filter select {
+    min-width: 0;
+    max-width: 100%;
+  }
+}
