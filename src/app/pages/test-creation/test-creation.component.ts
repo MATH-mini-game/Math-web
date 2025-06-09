@@ -64,6 +64,9 @@ export class TestCreationComponent {
     miniGameConfigs: this.fb.group({})
   });
 
+  successMessage: string = '';
+  errorMessage: string = '';
+
   ngOnInit() {
     this.auth.getCurrentUserWithRole().subscribe(user => {
       if (!user) return;
@@ -81,7 +84,7 @@ export class TestCreationComponent {
           }
         }
   
-        this.gradeLevels = Array.from(gradesSet).sort(); // sort optional
+        this.gradeLevels = Array.from(gradesSet).sort(); 
       });
     });
 
@@ -105,14 +108,19 @@ export class TestCreationComponent {
   onMiniGameToggle(gameId: string, checked: boolean) {
     const configs = this.testForm.get('miniGameConfigs') as FormGroup;
     if (checked) {
-      this.selectedMiniGames.push(gameId);
+      // Assign a new array to trigger change detection
+      this.selectedMiniGames = [...this.selectedMiniGames, gameId];
       configs.addControl(gameId, this.fb.group(this.buildMiniGameControls(gameId)));
     } else {
       this.selectedMiniGames = this.selectedMiniGames.filter(id => id !== gameId);
       configs.removeControl(gameId);
     }
     this.testForm.get('selectedMiniGames')?.setValue(this.selectedMiniGames);
+    // Force update and validity check
+    configs.updateValueAndValidity();
+    this.testForm.get('selectedMiniGames')?.updateValueAndValidity();
   }
+  
 
   buildMiniGameControls(gameId: string): { [key: string]: FormControl } {
     const game = this.allMiniGames.find(g => g.id === gameId);
@@ -127,8 +135,9 @@ export class TestCreationComponent {
   }  
 
   onCheckboxChange(event: Event, gameId: string) {
-    const input = event.target as HTMLInputElement;
-    this.onMiniGameToggle(gameId, input.checked);
+    const checkbox = event.target as HTMLInputElement;
+    const isChecked = checkbox.checked;
+    this.onMiniGameToggle(gameId, isChecked);
   }  
 
   submitTest() {
@@ -148,13 +157,27 @@ export class TestCreationComponent {
     };
       
     set(ref(this.db, `tests/${testId}`), testObject)
-    .then(() => alert('✅ Test created successfully!'))
-    .catch((err) => console.error('❌ Error saving test:', err));
+      .then(() => {
+        this.successMessage = '✅ Test created successfully!';
+        this.errorMessage = '';
+        this.testForm.reset();
+        this.selectedMiniGames = [];
+        setTimeout(() => this.successMessage = '', 2500);
+      })
+      .catch((err) => {
+        this.errorMessage = '❌ Error saving test: ' + (err?.message || err);
+        this.successMessage = '';
+        setTimeout(() => this.errorMessage = '', 3500);
+        console.error('❌ Error saving test:', err);
+      });
   }
 
   getKey(key: any): string {
     return key.key;
   }
   
-  
+  getMiniGameConfigKeys(gameId: string): string[] {
+    const group = this.testForm.get('miniGameConfigs')?.get(gameId);
+    return group ? Object.keys(group.value) : [];
+  }
 }

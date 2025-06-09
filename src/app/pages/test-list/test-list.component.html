@@ -1,15 +1,56 @@
-<h2>Your Tests</h2>
 
-<label>Filter by Grade:</label>
-<select [(ngModel)]="selectedGrade" (change)="applyFilter()">
-  <option value="">All Grades</option>
-  <option *ngFor="let grade of grades" [value]="grade">Grade {{ grade }}</option>
-</select>
+<div class="test-list">
+  <div class="test-list-header" style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px;">
+    <h3 style="margin: 0;">My Tests</h3>
+    <a class="btn-primary"
+      [routerLink]="['/dashboard/tests/create']"
+      style="display: inline-flex; align-items: center; text-decoration: none;">
+      <span style="display: inline-flex; align-items: center;">
+        <img src="icons/plus.svg" alt="Plus" width="18" height="18" style="margin-right: 8px;">
+        Create test
+      </span>
+    </a>
+  </div>
 
-<ul>
-  <li *ngFor="let test of filteredTests">
-    📘 <strong>{{ test.testName }}</strong> - Grade {{ test.grade }} (⏱ {{ test.testDuration }} mins)
-  </li>
-</ul>
+  <div class="test-filter">
+    <div class="search-container">
+      <input
+        type="text"
+        [(ngModel)]="searchTerm"
+        (input)="applyFilter()"
+        placeholder="Type the test title..."
+      />
+      <img
+        src="icons/magnifying-glass.svg"
+        alt="Search"
+        class="search-icon"
+      />
+    </div>
+    <select [(ngModel)]="selectedGrade" (change)="applyFilter()">
+      <option value="">All Grades</option>
+      <option *ngFor="let grade of grades" [value]="grade">Grade {{ grade }}</option>
+    </select>
+  </div>
 
-<div *ngIf="filteredTests.length === 0">No tests found.</div>
+  <div *ngIf="loading">Loading tests...</div>
+  <div *ngIf="!loading && filteredTests.length === 0">No tests found.</div>
+
+  <div *ngIf="!loading && filteredTests.length > 0" class="test-table">
+    <div class="test-row" *ngFor="let test of filteredTests">
+      <div class="test-info">
+        <div class="test-title">{{ test.testName }}</div>
+        <div class="test-grade">Grade {{ test.grade }}</div>
+      </div>
+      <div class="test-actions">
+        <button class="btn-secondary" (click)="editTest(test)">
+          <img src="icons/note-pencil.svg" alt="Edit" width="16" height="16" style="margin-right: 6px;">
+          Edit test
+        </button>
+        <button class="btn-secondary" (click)="endTest(test)">
+          <img src="icons/stop.svg" alt="End" width="16" height="16" style="margin-right: 6px;">
+          End test
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

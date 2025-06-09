@@ -28,13 +28,18 @@
     </div>
   </div>
   <div class="sidebar-bottom ">
-    <button class="btn-secondary">
+    <button class="btn-secondary"
+      [routerLink]="['settings']"
+    >
       <img src="icons/gear.svg" alt="Settings" width="20" height="20" style="vertical-align: middle; margin-right: 8px;">
       Settings
     </button>
     <button class="btn-primary" (click)="logout()">
       <img src="icons/sign-out.svg" alt="Logout" width="20" height="20" style="vertical-align: middle; margin-right: 8px;">
       Logout
+    </button>
+    <button (click)="toggleDarkMode()" class="btn-secondary">
+      Toggle Dark Mode
     </button>
   </div>
 </div>

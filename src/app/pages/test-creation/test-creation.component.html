@@ -1,49 +1,62 @@
-<h2>Create a New Test</h2>
+<div class="test-creation">
+  <h3>Create a New Test</h3>
+  <form [formGroup]="testForm" (ngSubmit)="submitTest()" class="student-form">
+    <div class="form-group">
+      <label>Title</label>
+      <input type="text" formControlName="title" required placeholder="Enter the test title..." />
+    </div>
 
-<form [formGroup]="testForm" (ngSubmit)="submitTest()">
-  <label>Title</label>
-  <input type="text" formControlName="title" placeholder="Test title" />
+    <div class="form-group">
+      <label>Grade</label>
+      <select formControlName="classroomId" required>
+        <option *ngFor="let grade of gradeLevels" [value]="grade">
+          {{ grade }}
+        </option>
+      </select>
+    </div>
 
-  <label>Classroom</label>
-  <select formControlName="classroomId">
-    <option *ngFor="let grade of gradeLevels" [value]="grade">
-      {{ grade }}
-    </option>
-  </select>
-
-  <label>Test Duration (minutes)</label>
-  <input type="number" formControlName="testDuration" />
-
-  <hr />
-
-  <label>Select Mini-Games</label>
-  <div *ngFor="let game of allMiniGames">
-    <label>
-      <input
-        type="checkbox"
-        [checked]="selectedMiniGames.includes(game.id)"
-        (change)="onCheckboxChange($event, game.id)"
-      />
-      {{ game.title }}
-    </label>
-  </div>
-
-  <hr />
-
-  <div formGroupName="miniGameConfigs">
-    <div *ngFor="let gameId of selectedMiniGames">
-      <h4>{{ gameId.replace('_', ' ') | titlecase }} Config</h4>
-      <div [formGroupName]="gameId">
-        <div *ngFor="let key of testForm.get('miniGameConfigs')?.get(gameId)?.value | keyvalue">
-          <label>{{ key.key }}</label>
+    <div class="form-group">
+      <label>Select Mini-Games</label>
+      <div *ngFor="let game of allMiniGames" style="margin-bottom: 16px;">
+        <label style="display: flex; align-items: center;">
           <input
-            type="text"
-            [formControlName]="getKey(key)"
-            />            
+            type="checkbox"
+            [checked]="selectedMiniGames.includes(game.id)"
+            (change)="onCheckboxChange($event, game.id)"
+            style="margin-right: 8px;"
+          />
+          {{ game.title }}
+        </label>
+        <div
+          *ngIf="selectedMiniGames.includes(game.id)"
+          class="mini-game-config"
+          [formGroupName]="game.id"
+        >
+          <h4 style="margin: 8px 0 12px 0;">{{ game.title }} Config</h4>
+          <div style="display: flex; flex-wrap: wrap; gap: 16px;">
+            <ng-container *ngFor="let param of getMiniGameConfigKeys(game.id)">
+              <div style="flex: 1 1 180px;">
+                <label>{{ param }}</label>
+                <input
+                  type="text"
+                  [formControlName]="param"
+                  style="width: 100%;"
+                />
+              </div>
+            </ng-container>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <button type="submit">Save Test</button>
-</form>
+    <button type="submit" [disabled]="testForm.invalid" class="btn-primary">
+      <span style="display: inline-flex; align-items: center;">
+        <img src="icons/plus.svg" alt="Plus" width="18" height="18" style="margin-right: 8px;">
+        Save Test
+      </span>
+    </button>
+
+    <p *ngIf="successMessage" class="success">{{ successMessage }}</p>
+    <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
+  </form>
+</div>

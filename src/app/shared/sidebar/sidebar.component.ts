@@ -27,6 +27,10 @@ export class SidebarComponent {
       if (user) this.userRole = user.role?.toLowerCase();
       this.updateNavItems();
     });
+
+    if (localStorage.getItem('darkMode') === '1') {
+      document.body.classList.add('dark-mode');
+    }
   }
 
   updateNavItems() {
@@ -58,5 +62,12 @@ export class SidebarComponent {
 
   logout() {
     this.auth.logout().then(() => window.location.reload());
+  }
+
+  toggleDarkMode() {
+    document.body.classList.toggle('dark-mode');
+    // Optionally, save preference to localStorage
+    const isDark = document.body.classList.contains('dark-mode');
+    localStorage.setItem('darkMode', isDark ? '1' : '0');
   }
 }

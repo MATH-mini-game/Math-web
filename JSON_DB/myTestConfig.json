@@ -1,0 +1,60 @@
+{
+    "test_001": {
+        "testName": "Grade 4 - Spring Term Assessment",
+        "teacherId": "uid_789",
+        "grade": 4,
+        "isDraft": false,
+        "createdAt": "2025-04-07T10:00:00Z",
+        "updatedAt": "2025-04-08T14:30:00Z",
+        "miniGameOrder": [
+        "find_previous_next_number",
+        "tap_matching_pairs",
+        "what_number_do_you_hear"
+        ],
+        "miniGameConfigs": {
+            "find_previous_next_number": {
+                "miniGameDuration": 20,
+                "numQuestions": 2,
+                "maxNumberRange": 3, 
+                "requiredCorrectAnswersMinimumPercent": 75
+                }
+            },
+            "tap_matching_pairs": {
+                "miniGameDuration": 15,
+                "levels":{
+                    "level 1":{
+                        "minNumber":1,
+                        "maxNumber": 5
+                    },
+                    "level 2":{
+                        "minNumber":1,
+                        "maxNumber": 15
+                    },
+                    "level 3":{
+                        "minNumber":1,
+                        "maxNumber": 25
+                    },
+                    "level 4":{
+                        "minNumber":1,
+                        "maxNumber": 40
+                    },
+                    "level 5":{
+                        "minNumber":1,
+                        "maxNumber": 60
+                    },
+                    "level 6":{
+                        "minNumber":1,
+                        "maxNumber": 100
+                    }
+                }
+            },
+            "what_number_do_you_hear": {
+                "miniGameDuration": 15,
+                "numQuestions": 5,
+                "minNumber" : 2,
+                "maxNumber": 99,
+                "languages": ["fr","ar"]                            
+            }
+    }
+}
+
