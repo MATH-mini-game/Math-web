@@ -134,3 +134,15 @@
     opacity: 0.5;
     pointer-events: none;
   }
+  .custom-checkbox {
+  accent-color: var(--primary-orange);
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+}
+
+/* For browsers that don't support accent-color, fallback: */
+.custom-checkbox:checked {
+  background-color: var(--primary-orange);
+  border-color: var(--primary-orange);
+}

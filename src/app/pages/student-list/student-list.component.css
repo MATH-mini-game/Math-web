@@ -4,7 +4,6 @@ table {
     border-spacing: 0;
     border-radius: 20px;
     overflow: hidden;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.03);
     margin: 0 auto;
   }
   
@@ -19,12 +18,12 @@ table {
   }
   
   tbody {
-    background: #fff;
+    background: var(--white);
   }
   
   tbody td {
     padding: 14px 12px;
-    border-top: 1px solid #f0f0f0;
+    border-top: 1px solid var(--gray-100);
     text-align: center;
   }
   
@@ -39,7 +38,7 @@ table {
   }
   
   tbody tr:hover {
-    background: var(--gray-100, #f5f5f5);
+    background: var(--gray-100);
   }
   .student-filter {
     display: flex;
@@ -56,7 +55,7 @@ table {
 
 .student-filter input {
   width: 100%;
-  background: var(--gray-300, #e0e0e0);
+  background: var(--gray-300);
   border: none;
   border-radius: 20px;
   padding: 12px 16px 12px 44px;
@@ -65,8 +64,12 @@ table {
   box-sizing: border-box;
   transition: box-shadow 0.2s;
   flex: 1;
+  
 }
 
+select{
+  color: var(--gray-900);
+}
 .student-filter input:focus,.student-filter select:focus {
   box-shadow: 0 0 0 2px var(--gray-700);
 }
@@ -83,7 +86,7 @@ table {
 }
 
 .student-filter select {
-  background: var(--gray-300, #e0e0e0);
+  background: var(--gray-300);
   border: none;
   border-radius: 20px;
   padding: 12px 40px 12px 16px;

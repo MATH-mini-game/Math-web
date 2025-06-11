@@ -28,6 +28,13 @@
     </div>
   </div>
   <div class="sidebar-bottom ">
+    <button class="btn-secondary darkmode-switch" type="button" (click)="toggleDarkMode()" style="display: flex; align-items: center; gap: 8px;">
+      <span>Dark Mode</span>
+      <label class="switch">
+        <input type="checkbox" [checked]="isDarkMode" (change)="toggleDarkMode()" />
+        <span class="slider"></span>
+      </label>
+    </button>
     <button class="btn-secondary"
       [routerLink]="['settings']"
     >
@@ -37,9 +44,6 @@
     <button class="btn-primary" (click)="logout()">
       <img src="icons/sign-out.svg" alt="Logout" width="20" height="20" style="vertical-align: middle; margin-right: 8px;">
       Logout
-    </button>
-    <button (click)="toggleDarkMode()" class="btn-secondary">
-      Toggle Dark Mode
     </button>
   </div>
 </div>

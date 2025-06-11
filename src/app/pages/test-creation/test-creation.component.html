@@ -15,12 +15,13 @@
       </select>
     </div>
 
-    <div class="form-group">
+    <div class="form-group" style="width: 100%;">
       <label>Select Mini-Games</label>
       <div *ngFor="let game of allMiniGames" style="margin-bottom: 16px;">
         <label style="display: flex; align-items: center;">
           <input
             type="checkbox"
+            class="custom-checkbox"
             [checked]="selectedMiniGames.includes(game.id)"
             (change)="onCheckboxChange($event, game.id)"
             style="margin-right: 8px;"
@@ -88,18 +89,20 @@
     </div>
 
     <!-- New submit buttons -->
-    <button type="button" class="btn-secondary" (click)="submitTest(true)" [disabled]="testForm.invalid">
-      <span style="display: inline-flex; align-items: center;">
-        <img src="icons/file.svg" alt="Save" width="18" height="18" style="margin-right: 8px;">
-        Save to Draft
-      </span>
-    </button>
-    <button type="button" class="btn-primary" (click)="submitTest(false)" [disabled]="testForm.invalid">
-      <span style="display: inline-flex; align-items: center;">
-        <img src="icons/paper-plane-tilt.svg" alt="Plus" width="18" height="18" style="margin-right: 8px;">
-        Publish Test
-      </span>
-    </button>
+    <div class="button-row" style="display: flex; width: 100%; gap: 24px; margin-top: 24px;">
+      <button type="button" class="btn-secondary" (click)="submitTest(true)" [disabled]="testForm.invalid" style="flex: 1;">
+        <span style="display: inline-flex; align-items: center;">
+          <img src="icons/file.svg" alt="Save" width="18" height="18" style="margin-right: 8px;">
+          Save to Draft
+        </span>
+      </button>
+      <button type="button" class="btn-primary" (click)="submitTest(false)" [disabled]="testForm.invalid" style="flex: 1;">
+        <span style="display: inline-flex; align-items: center;">
+          <img src="icons/paper-plane-tilt.svg" alt="Plus" width="18" height="18" style="margin-right: 8px;">
+          Publish Test
+        </span>
+      </button>
+    </div>
 
     <p *ngIf="successMessage" class="success">{{ successMessage }}</p>
     <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>

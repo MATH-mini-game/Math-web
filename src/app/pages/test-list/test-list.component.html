@@ -44,12 +44,12 @@
       <div class="test-info">
         <div class="test-title">
           {{ test.testName }}
-          <span *ngIf="test.status === 'drafted'" style="font-size: 0.85em; color: var(--gray-700); margin-left: 8px; background: #fff; border-radius: 8px; padding: 2px 8px;">
+          <span *ngIf="test.status === 'drafted'" style="font-size: 0.85em; color: var(--gray-700); margin-left: 8px; background: var(--white); border-radius: 8px; padding: 2px 8px;">
             Draft
           </span>
         </div>
         <div class="test-grade">Grade {{ test.grade }}</div>
-        <div class="test-created" style="font-size: 0.9em; color: #888;">
+        <div class="test-created" style="font-size: 0.9em; color: var(--gray-700);">
           Created {{ test.createdAt ? (test.createdAt | timeAgo) : '' }}
         </div>
       </div>

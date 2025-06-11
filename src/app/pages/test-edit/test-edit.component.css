@@ -82,7 +82,7 @@
     background-color: #f9f9f9;
     padding: 16px;
     border-radius: 12px;
-    border: 1px solid #e0e0e0;
+    border: 1px solid var(--gray-300);
   }
   
   div[formGroupName="miniGameConfigs"] h4 {
@@ -122,9 +122,8 @@
   }
   
   .mini-game-config {
-    background: #fff;
+    background: var(--white);
     border-radius: 16px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
     padding: 20px 20px 12px 20px;
     margin-top: 8px;
     margin-bottom: 8px;

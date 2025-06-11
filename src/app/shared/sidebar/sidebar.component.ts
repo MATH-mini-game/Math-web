@@ -70,4 +70,7 @@ export class SidebarComponent {
     const isDark = document.body.classList.contains('dark-mode');
     localStorage.setItem('darkMode', isDark ? '1' : '0');
   }
+  get isDarkMode(): boolean {
+  return document.body.classList.contains('dark-mode');
+}
 }

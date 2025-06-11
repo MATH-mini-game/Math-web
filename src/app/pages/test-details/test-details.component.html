@@ -57,7 +57,7 @@
           <div
             class="minigame-card"
             *ngFor="let mg of test.miniGameOrder"
-            style="background: #f8f9fb; border-radius: 20px;; padding: 18px 22px; min-width: 220px; flex: 1 1 220px;"
+            style="background: var(--white);; border-radius: 20px;; padding: 18px 22px; min-width: 220px; flex: 1 1 220px;"
           >
             <div style="font-weight: bold; margin-bottom: 8px; color: var(--black);">{{ mg }}</div>
             <div *ngIf="test.miniGameConfigs && test.miniGameConfigs[mg]">
