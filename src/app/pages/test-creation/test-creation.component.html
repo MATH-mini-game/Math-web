@@ -1,6 +1,6 @@
 <div class="test-creation">
   <h3>Create a New Test</h3>
-  <form [formGroup]="testForm" (ngSubmit)="submitTest()" class="student-form">
+  <form [formGroup]="testForm" class="student-form">
     <div class="form-group">
       <label>Title</label>
       <input type="text" formControlName="title" required placeholder="Enter the test title..." />
@@ -49,10 +49,17 @@
       </div>
     </div>
 
-    <button type="submit" [disabled]="testForm.invalid" class="btn-primary">
+    <!-- New submit buttons -->
+    <button type="button" class="btn-secondary" (click)="submitTest(true)" [disabled]="testForm.invalid">
       <span style="display: inline-flex; align-items: center;">
-        <img src="icons/plus.svg" alt="Plus" width="18" height="18" style="margin-right: 8px;">
-        Save Test
+        <img src="icons/file.svg" alt="Save" width="18" height="18" style="margin-right: 8px;">
+        Save to Draft
+      </span>
+    </button>
+    <button type="button" class="btn-primary" (click)="submitTest(false)" [disabled]="testForm.invalid">
+      <span style="display: inline-flex; align-items: center;">
+        <img src="icons/paper-plane-tilt.svg" alt="Plus" width="18" height="18" style="margin-right: 8px;">
+        Publish Test
       </span>
     </button>
 

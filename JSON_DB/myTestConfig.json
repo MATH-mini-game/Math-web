@@ -21,6 +21,7 @@
             },
             "tap_matching_pairs": {
                 "miniGameDuration": 15,
+                "requiredCorrectAnswersMinimumPercent": 75,
                 "levels":{
                     "level 1":{
                         "minNumber":1,
@@ -46,13 +47,13 @@
                         "minNumber":1,
                         "maxNumber": 100
                     }
-                }
+            }
             },
             "what_number_do_you_hear": {
                 "miniGameDuration": 15,
                 "numQuestions": 5,
-                "minNumber" : 2,
                 "maxNumber": 99,
+                "requiredCorrectAnswersMinimumPercent": 75,
                 "languages": ["fr","ar"]                            
             }
     }

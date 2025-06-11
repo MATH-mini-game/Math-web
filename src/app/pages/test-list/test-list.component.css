@@ -100,10 +100,13 @@
     display: flex;
     gap: 8px;
   }
-  .test-actions button{
+  .test-actions a{
+    text-decoration: none;
+  }
+  .test-actions .btn-secondary{
     border: 1px solid var(--gray-700);
   }
-  .test-actions button:hover{
+  .test-actions .btn-secondary:hover{
     background: var(--gray-100);
   }
   

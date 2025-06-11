@@ -140,7 +140,7 @@ export class TestCreationComponent {
     this.onMiniGameToggle(gameId, isChecked);
   }  
 
-  submitTest() {
+  submitTest(isDraft: boolean) {
     if (this.testForm.invalid) return;
 
     const testData = this.testForm.value;
@@ -150,15 +150,17 @@ export class TestCreationComponent {
       teacherId: this.teacherUID,
       grade: testData.classroomId,
       testDuration: testData.testDuration,
-      isDraft: false,
+      isDraft: isDraft,
+      status: isDraft ? 'drafted' : 'published',
       miniGameOrder: testData.selectedMiniGames,
       miniGameConfigs: testData.miniGameConfigs,
       createdAt: Date.now(),
+      testId: testId,
     };
       
     set(ref(this.db, `tests/${testId}`), testObject)
       .then(() => {
-        this.successMessage = '✅ Test created successfully!';
+        this.successMessage = isDraft ? '✅ Test saved as draft!' : '✅ Test published successfully!';
         this.errorMessage = '';
         this.testForm.reset();
         this.selectedMiniGames = [];
