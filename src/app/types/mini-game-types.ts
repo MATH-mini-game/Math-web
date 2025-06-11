@@ -61,11 +61,15 @@ export interface CompareNumbersConfig {
 }
 
 export interface WhatNumberDoYouHearConfig {
-  miniGameDuration: number;
+  questionDuration: number;
+  maxNumberLevel1: number;
+  maxNumberLevel2: number;
+  maxNumberLevel3: number;
+  maxNumberLevel4: number;
+  maxNumberLevel5: number;
+  maxNumberLevel6: number;
   numQuestions: number;
-  maxNumber: number;
   requiredCorrectAnswersMinimumPercent: number;
-  languages: string[];
 }
 
 export interface DecomposeNumberConfig {

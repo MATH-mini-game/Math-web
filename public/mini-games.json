@@ -244,18 +244,26 @@
       "defaultConfig": {
         "gradeConfig": {
           "1": {
-            "miniGameDuration": 15,
+            "questionDuration": 15,
+            "maxNumberLevel1": 10,
+            "maxNumberLevel2": 20,
+            "maxNumberLevel3": 30,
+            "maxNumberLevel4": 50,
+            "maxNumberLevel5": 70,
+            "maxNumberLevel6": 100,
             "numQuestions": 5,
-            "maxNumber": 99,
-            "requiredCorrectAnswersMinimumPercent": 75,
-            "languages": ["fr", "ar"]
+            "requiredCorrectAnswersMinimumPercent": 75
           },
           "2": {
-            "miniGameDuration": 15,
+            "questionDuration": 15,
+            "maxNumberLevel1": 10,
+            "maxNumberLevel2": 20,
+            "maxNumberLevel3": 30,
+            "maxNumberLevel4": 50,
+            "maxNumberLevel5": 70,
+            "maxNumberLevel6": 100,
             "numQuestions": 5,
-            "maxNumber": 99,
-            "requiredCorrectAnswersMinimumPercent": 75,
-            "languages": ["fr", "ar"]
+            "requiredCorrectAnswersMinimumPercent": 75
           }
         },
         "skills": ["Number Audio Recognition"],

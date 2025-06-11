@@ -145,10 +145,10 @@ export class TestCreationComponent {
         continue;
       }
       // For WhatNumberDoYouHearConfig.languages, handle as a FormControl for array
-      if (gameId === 'what_number_do_you_hear' && key === 'languages' && Array.isArray(fields['languages'])) {
-        controls['languages'] = new FormControl(fields['languages'], Validators.required);
-        continue;
-      }
+      // if (gameId === 'what_number_do_you_hear' && key === 'languages' && Array.isArray(fields['languages'])) {
+      //   controls['languages'] = new FormControl(fields['languages'], Validators.required);
+      //   continue;
+      // }
       // Add controls for primitive fields only
       controls[key] = new FormControl(fields[key as keyof typeof fields], Validators.required);
     }
