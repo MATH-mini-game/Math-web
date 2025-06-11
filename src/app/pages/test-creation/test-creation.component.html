@@ -35,14 +35,52 @@
           <h4 style="margin: 8px 0 12px 0;">{{ game.title }} Config</h4>
           <div style="display: flex; flex-wrap: wrap; gap: 16px;">
             <ng-container *ngFor="let param of getMiniGameConfigKeys(game.id)">
-              <div style="flex: 1 1 180px;">
-                <label>{{ param }}</label>
-                <input
-                  type="text"
-                  [formControlName]="param"
-                  style="width: 100%;"
-                />
-              </div>
+              <!-- TapMatchingPairsConfig: levels -->
+              <ng-container *ngIf="param === 'levels'; else notLevels">
+                <label>Levels:</label>
+                <div [formGroupName]="'levels'" style="margin-left: 16px;">
+                  <div *ngFor="let levelKey of levelKeys(game.id)">
+                    <div [formGroupName]="levelKey" style="margin-bottom: 8px;">
+                      <strong>{{ levelKey }}</strong>
+                      <div style="display: flex; gap: 8px;">
+                        <label>Min:
+                          <input type="number" formControlName="minNumber" style="width: 60px;" />
+                        </label>
+                        <label>Max:
+                          <input type="number" formControlName="maxNumber" style="width: 60px;" />
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </ng-container>
+              <ng-template #notLevels>
+                <!-- WhatNumberDoYouHearConfig: languages -->
+                <ng-container *ngIf="param === 'languages'; else notLanguages">
+                  <label>Languages:</label>
+                  <div [formGroupName]="param">
+                    <label *ngFor="let lang of testForm.get('miniGameConfigs')?.get(game.id)?.get('languages')?.value">
+                      <input
+                        type="checkbox"
+                        [checked]="testForm.get('miniGameConfigs')?.get(game.id)?.get('languages')?.value.includes(lang)"
+                        (change)="onLanguageCheckboxChange($event, game.id, lang)"
+                      />
+                      {{ lang }}
+                    </label>
+                  </div>
+                </ng-container>
+                <ng-template #notLanguages>
+                  <!-- Default: primitive fields -->
+                  <div>
+                    <label>{{ param }}</label>
+                    <input
+                      type="text"
+                      [formControlName]="param"
+                      style="width: 100%;"
+                    />
+                  </div>
+                </ng-template>
+              </ng-template>
             </ng-container>
           </div>
         </div>

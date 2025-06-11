@@ -8,16 +8,15 @@
       <div class="test-info-container">
         <div class="test-info-left">
           <div><strong>Title:</strong> {{ test.testName }}</div>
-          <div><strong>Description:</strong> {{ test.description || 'N/A' }}</div>
+          <div><strong>Status:</strong> {{ test.status | titlecase }}</div>
           <div><strong>Grade:</strong> {{ test.grade }}</div>
-          <div><strong>Created By:</strong> {{ test.createdBy || 'N/A' }}</div>
-          <div><strong>Date:</strong> {{ test.date | date }}</div>
-          <!-- Add more fields as needed -->
+          <div><strong>Test ID:</strong> {{ test.testId }}</div>
+          <div><strong>Created:</strong> {{ test.createdAt | timeAgo }}</div>
+          <div><strong>Last Updated:</strong> {{ test.updatedAt | timeAgo }}</div>
         </div>
         <div class="test-info-right">
           <button class="btn-secondary"
-          [routerLink]="['/dashboard/tests/', test?.testId, 'edit']">
-        
+            [routerLink]="['/dashboard/tests/', test?.testId, 'edit']">
             <img src="icons/note-pencil.svg" alt="Edit" width="18" height="18" style="margin-right: 8px;">
             Edit Test
           </button>
@@ -25,6 +24,53 @@
             <img src="icons/stop.svg" alt="End" width="18" height="18" style="margin-right: 8px;">
             End Test
           </button>
+        </div>
+      </div>
+
+      <!-- Mini-Games Section -->
+      <div class="minigames-section" style="margin-top: 32px;">
+        <h4>Mini-Games</h4>
+        <div class="minigames-cards" style="display: flex; flex-wrap: wrap; gap: 20px;">
+          <div
+            class="minigame-card"
+            *ngFor="let mg of test.miniGameOrder"
+            style="background: #f8f9fb; border-radius: 20px;; padding: 18px 22px; min-width: 220px; flex: 1 1 220px;"
+          >
+            <div style="font-weight: bold; margin-bottom: 8px; color: var(--black);">{{ mg }}</div>
+            <div *ngIf="test.miniGameConfigs && test.miniGameConfigs[mg]">
+              <div *ngFor="let key of (test.miniGameConfigs[mg] | keyvalue)">
+                <ng-container *ngIf="key.key !== 'levels' && key.key !== 'languages'">
+                  <div style="margin-bottom: 4px; color:var(--gray-900);">
+                    <strong>{{ key.key }}:</strong> {{ key.value }}
+                  </div>
+                </ng-container>
+                <!-- Levels for tap_matching_pairs -->
+                <!--
+                <div *ngIf="key.key === 'levels'">
+                  <div style="margin-left: 8px;">
+                    <strong>Levels:</strong>
+                    <ul style="margin: 0 0 0 16px;">
+                      <li *ngFor="let lvl of (key.value ? (key.value | keyvalue) : [])">
+                        {{ lvl.key }}:
+                        min={{ (lvl.value && (lvl.value as any)['minNumber'] !== undefined) ? (lvl.value as any)['minNumber'] : '' }},
+                        max={{ (lvl.value && (lvl.value as any)['maxNumber'] !== undefined) ? (lvl.value as any)['maxNumber'] : '' }}
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                -->
+                <!-- Languages for what_number_do_you_hear -->
+                <!--
+                <div *ngIf="key.key === 'languages'">
+                  <span style="margin-left:8px;">
+                    <strong>Languages:</strong>
+                    {{ key.value && (key.value.join ? key.value.join(', ') : '') }}
+                  </span>
+                </div>
+                -->
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </ng-container>

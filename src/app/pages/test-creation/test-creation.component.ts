@@ -19,6 +19,7 @@ import {
   IdentifyPlaceValueConfig,
   ReadNumberAloudConfig
 } from '../../types/mini-game-types';
+import { update } from 'firebase/database';
 
 @Component({
   selector: 'app-test-creation',
@@ -122,15 +123,36 @@ export class TestCreationComponent {
   }
   
 
-  buildMiniGameControls(gameId: string): { [key: string]: FormControl } {
+  buildMiniGameControls(gameId: string): { [key: string]: FormControl | FormGroup } {
     const game = this.allMiniGames.find(g => g.id === gameId);
     const fields = game?.configTemplate || {};
-    const controls: { [key: string]: FormControl } = {};
-  
+    // Change the return type to allow FormGroup for nested structures
+    const controls: { [key: string]: FormControl | FormGroup } = {};
+
     for (const key in fields) {
+      // For TapMatchingPairsConfig.levels, handle as a nested group of controls
+      if (gameId === 'tap_matching_pairs' && key === 'levels' && typeof fields['levels'] === 'object') {
+        const levels = fields['levels'] as { [level: string]: { minNumber: number; maxNumber: number } };
+        const levelGroup: { [level: string]: FormGroup } = {};
+        for (const levelKey in levels) {
+          levelGroup[levelKey] = this.fb.group({
+            minNumber: [levels[levelKey].minNumber, Validators.required],
+            maxNumber: [levels[levelKey].maxNumber, Validators.required]
+          });
+        }
+        // Allow FormGroup here
+        controls['levels'] = this.fb.group(levelGroup);
+        continue;
+      }
+      // For WhatNumberDoYouHearConfig.languages, handle as a FormControl for array
+      if (gameId === 'what_number_do_you_hear' && key === 'languages' && Array.isArray(fields['languages'])) {
+        controls['languages'] = new FormControl(fields['languages'], Validators.required);
+        continue;
+      }
+      // Add controls for primitive fields only
       controls[key] = new FormControl(fields[key as keyof typeof fields], Validators.required);
     }
-  
+
     return controls;
   }  
 
@@ -139,6 +161,20 @@ export class TestCreationComponent {
     const isChecked = checkbox.checked;
     this.onMiniGameToggle(gameId, isChecked);
   }  
+
+  onLanguageCheckboxChange(event: Event, gameId: string, lang: string) {
+    const checkbox = event.target as HTMLInputElement;
+    const control = this.testForm.get(['miniGameConfigs', gameId, 'languages']);
+    if (!control) return;
+    const current = control.value || [];
+    if (checkbox.checked) {
+      if (!current.includes(lang)) {
+        control.setValue([...current, lang]);
+      }
+    } else {
+      control.setValue(current.filter((l: string) => l !== lang));
+    }
+  }
 
   submitTest(isDraft: boolean) {
     if (this.testForm.invalid) return;
@@ -155,6 +191,7 @@ export class TestCreationComponent {
       miniGameOrder: testData.selectedMiniGames,
       miniGameConfigs: testData.miniGameConfigs,
       createdAt: Date.now(),
+      updatedAt: Date.now(),
       testId: testId,
     };
       
@@ -180,6 +217,23 @@ export class TestCreationComponent {
   
   getMiniGameConfigKeys(gameId: string): string[] {
     const group = this.testForm.get('miniGameConfigs')?.get(gameId);
-    return group ? Object.keys(group.value) : [];
+    if (!group) return [];
+    // For tap_matching_pairs, include 'levels'
+    if (gameId === 'tap_matching_pairs') {
+      return Object.keys(group.value);
+    }
+    // For what_number_do_you_hear, include 'languages'
+    if (gameId === 'what_number_do_you_hear') {
+      return Object.keys(group.value);
+    }
+    return Object.keys(group.value);
+  }
+
+  levelKeys(gameId: string): string[] {
+    const levelsGroup = this.testForm.get(['miniGameConfigs', gameId, 'levels']);
+    if (levelsGroup && 'controls' in levelsGroup) {
+      return Object.keys((levelsGroup as any).controls);
+    }
+    return [];
   }
 }

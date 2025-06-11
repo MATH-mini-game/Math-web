@@ -1,24 +1,14 @@
 import { Component, EventEmitter, output } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { NgIf } from '@angular/common';
-import { RoleManagementComponent } from '../role-management/role-management.component';
-import { NavBarComponent } from '../../shared/nav-bar/nav-bar.component';
-import { StudentRegistrationComponent } from '../student-registration/student-registration.component';
-import { StudentListComponent } from '../student-list/student-list.component';
 import { SidebarComponent } from '../../shared/sidebar/sidebar.component';
-import { TestCreationComponent } from '../test-creation/test-creation.component';
-import { TestListComponent } from '../test-list/test-list.component';
-import { CreateParentComponent } from '../create-parent/create-parent.component';
 import { BreadcrumbsComponent } from '../../shared/breadcrumbs/breadcrumbs.component';
-import { TeacherDashboardComponent } from '../teacher-dashboard/teacher-dashboard.component';
 import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
   imports: [NgIf, SidebarComponent, 
-    RoleManagementComponent, StudentRegistrationComponent, 
-    StudentListComponent, TestCreationComponent, 
-    TestListComponent, CreateParentComponent, BreadcrumbsComponent,TeacherDashboardComponent, RouterOutlet],
+     BreadcrumbsComponent, RouterOutlet],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })

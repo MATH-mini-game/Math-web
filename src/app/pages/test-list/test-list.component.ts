@@ -6,7 +6,7 @@ import { onValue, ref } from 'firebase/database';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { update, remove, ref as dbRef } from 'firebase/database';
-import { TimeAgoPipe } from './time-ago.pipe';
+import { TimeAgoPipe } from '../../shared/pipes/time-ago.pipe';
 
 @Component({
   selector: 'app-test-list',

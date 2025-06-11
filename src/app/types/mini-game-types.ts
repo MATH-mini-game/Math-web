@@ -30,15 +30,21 @@ export interface MultiStepProblemConfig {
 }
 
 export interface FindPreviousNextNumberConfig {
+  miniGameDuration: number;
   numQuestions: number;
   maxNumberRange: number;
   requiredCorrectAnswersMinimumPercent: number;
 }
 
 export interface TapMatchingPairsConfig {
-  numPairs: number;
-  maxNumberRange: number;
+  miniGameDuration: number;
   requiredCorrectAnswersMinimumPercent: number;
+  levels: {
+    [level: string]: {
+      minNumber: number;
+      maxNumber: number;
+    };
+  };
 }
 
 export interface OrderNumbersConfig {
@@ -55,9 +61,11 @@ export interface CompareNumbersConfig {
 }
 
 export interface WhatNumberDoYouHearConfig {
+  miniGameDuration: number;
   numQuestions: number;
-  maxNumberRange: number;
+  maxNumber: number;
   requiredCorrectAnswersMinimumPercent: number;
+  languages: string[];
 }
 
 export interface DecomposeNumberConfig {

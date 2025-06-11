@@ -1,20 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Database, ref, get, update } from '@angular/fire/database';
-import { DatePipe } from '@angular/common';
+import { DatePipe, NgFor, NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-student-details',
   templateUrl: './student-details.component.html',
   styleUrls: ['./student-details.component.css'],
   standalone: true,
-  imports: [RouterLink, DatePipe]
+  imports: [RouterLink, DatePipe, NgIf, NgFor]
 })
 export class StudentDetailsComponent implements OnInit {
   student: any = null;
   loading = true;
   studentId: string | null = null;
   assignedTests: any[] = [];
+  testResults: any = {};
 
   constructor(
     private route: ActivatedRoute,
@@ -28,6 +29,7 @@ export class StudentDetailsComponent implements OnInit {
       get(ref(this.db, `users/${this.studentId}`)).then(snapshot => {
         if (snapshot.exists()) {
           this.student = snapshot.val();
+          this.testResults = this.student.testResults || {};
           // Fetch assigned tests by grade
           if (this.student?.schoolGrade) {
             get(ref(this.db, `tests`)).then(testsSnap => {
@@ -45,6 +47,20 @@ export class StudentDetailsComponent implements OnInit {
     } else {
       this.loading = false;
     }
+  }
+
+  getTestScore(testId: string): string {
+    const result = this.testResults[testId];
+    if (!result || !result.miniGames) return 'Pending';
+    let sum = 0;
+    let found = false;
+    for (const mg of Object.values(result.miniGames)) {
+      if (mg && typeof mg === 'object' && 'score' in mg) {
+        sum += (mg as any).score || 0;
+        found = true;
+      }
+    }
+    return found ? sum.toString() : 'Pending';
   }
 
   editStudent() {

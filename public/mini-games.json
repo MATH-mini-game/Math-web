@@ -1,4 +1,4 @@
-  {
+{
     "miniGames": {
     "find_compositions": {
       "id": "find_compositions",
@@ -110,8 +110,18 @@
       "suggestedGradeRange": { "min": 2, "max": 3 },
       "defaultConfig": {
         "gradeConfig": {
-          "2": {"numQuestions": 3, "maxNumberRange": 1, "requiredCorrectAnswersMinimumPercent": 75},
-          "3": {"numQuestions": 2, "maxNumberRange": 2, "requiredCorrectAnswersMinimumPercent": 75}
+          "2": {
+            "miniGameDuration": 20,
+            "numQuestions": 2,
+            "maxNumberRange": 3,
+            "requiredCorrectAnswersMinimumPercent": 75
+          },
+          "3": {
+            "miniGameDuration": 20,
+            "numQuestions": 2,
+            "maxNumberRange": 3,
+            "requiredCorrectAnswersMinimumPercent": 75
+          }
         },
         "skills": ["Previous and Next Number Identification"]
       }
@@ -132,9 +142,42 @@
       "suggestedGradeRange": { "min": 1, "max": 3 },
       "defaultConfig": {
         "gradeConfig": {
-          "1": {"numPairs": 2, "maxNumberRange": 2, "requiredCorrectAnswersMinimumPercent": 50},
-          "2": {"numPairs": 3, "maxNumberRange": 4, "requiredCorrectAnswersMinimumPercent": 75},
-          "3": {"numPairs": 5, "maxNumberRange": 6, "requiredCorrectAnswersMinimumPercent": 75}
+          "1": {
+            "miniGameDuration": 15,
+            "requiredCorrectAnswersMinimumPercent": 75,
+            "levels": {
+              "level 1": { "minNumber": 1, "maxNumber": 5 },
+              "level 2": { "minNumber": 1, "maxNumber": 15 },
+              "level 3": { "minNumber": 1, "maxNumber": 25 },
+              "level 4": { "minNumber": 1, "maxNumber": 40 },
+              "level 5": { "minNumber": 1, "maxNumber": 60 },
+              "level 6": { "minNumber": 1, "maxNumber": 100 }
+            }
+          },
+          "2": {
+            "miniGameDuration": 15,
+            "requiredCorrectAnswersMinimumPercent": 75,
+            "levels": {
+              "level 1": { "minNumber": 1, "maxNumber": 5 },
+              "level 2": { "minNumber": 1, "maxNumber": 15 },
+              "level 3": { "minNumber": 1, "maxNumber": 25 },
+              "level 4": { "minNumber": 1, "maxNumber": 40 },
+              "level 5": { "minNumber": 1, "maxNumber": 60 },
+              "level 6": { "minNumber": 1, "maxNumber": 100 }
+            }
+          },
+          "3": {
+            "miniGameDuration": 15,
+            "requiredCorrectAnswersMinimumPercent": 75,
+            "levels": {
+              "level 1": { "minNumber": 1, "maxNumber": 5 },
+              "level 2": { "minNumber": 1, "maxNumber": 15 },
+              "level 3": { "minNumber": 1, "maxNumber": 25 },
+              "level 4": { "minNumber": 1, "maxNumber": 40 },
+              "level 5": { "minNumber": 1, "maxNumber": 60 },
+              "level 6": { "minNumber": 1, "maxNumber": 100 }
+            }
+          }
         },
         "skills": ["Matching Numbers with Written Form"]
       }
@@ -200,20 +243,31 @@
       "suggestedGradeRange": { "min": 1, "max": 2 },
       "defaultConfig": {
         "gradeConfig": {
-          "1": {"numQuestions": 6, "maxNumberRange": 1, "requiredCorrectAnswersMinimumPercent": 75},
-          "2": {"numQuestions": 4, "maxNumberRange": 2, "requiredCorrectAnswersMinimumPercent": 75}
+          "1": {
+            "miniGameDuration": 15,
+            "numQuestions": 5,
+            "maxNumber": 99,
+            "requiredCorrectAnswersMinimumPercent": 75,
+            "languages": ["fr", "ar"]
+          },
+          "2": {
+            "miniGameDuration": 15,
+            "numQuestions": 5,
+            "maxNumber": 99,
+            "requiredCorrectAnswersMinimumPercent": 75,
+            "languages": ["fr", "ar"]
+          }
         },
         "skills": ["Number Audio Recognition"],
-        "numbersAudioLinks":
-        {
-          "0":{ "ar": "", "fr": "", "en": "" },
-          "1":{ "ar": "", "fr": "", "en": "" },
-          "2":{ "ar": "", "fr": "", "en": "" },
-          "3":{ "ar": "", "fr": "", "en": "" },
-          "4":{ "ar": "", "fr": "", "en": "" },
-          "5":{ "ar": "", "fr": "", "en": "" },
-          "6":{ "ar": "", "fr": "", "en": "" },
-          "7":{ "ar": "", "fr": "", "en": "" }
+        "numbersAudioLinks": {
+          "0": { "ar": "", "fr": "", "en": "" },
+          "1": { "ar": "", "fr": "", "en": "" },
+          "2": { "ar": "", "fr": "", "en": "" },
+          "3": { "ar": "", "fr": "", "en": "" },
+          "4": { "ar": "", "fr": "", "en": "" },
+          "5": { "ar": "", "fr": "", "en": "" },
+          "6": { "ar": "", "fr": "", "en": "" },
+          "7": { "ar": "", "fr": "", "en": "" }
         }
       }
     },

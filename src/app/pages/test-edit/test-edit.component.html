@@ -1,1 +1,100 @@
-<p>test-edit works!</p>
+<div class="test-edit">
+  <h3>Edit Test</h3>
+  <form [formGroup]="testForm" class="student-form">
+    <div class="form-group">
+      <label>Title</label>
+      <input type="text" formControlName="title" required placeholder="Enter the test title..." />
+    </div>
+
+    <div class="form-group">
+      <label>Grade</label>
+      <select formControlName="classroomId" required>
+        <option *ngFor="let grade of gradeLevels" [value]="grade">
+          {{ grade }}
+        </option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>Select Mini-Games</label>
+      <div *ngFor="let game of allMiniGames" style="margin-bottom: 16px;">
+        <label style="display: flex; align-items: center;">
+          <input
+            type="checkbox"
+            [checked]="selectedMiniGames.includes(game.id)"
+            (change)="onCheckboxChange($event, game.id)"
+            style="margin-right: 8px;"
+          />
+          {{ game.title }}
+        </label>
+        <div
+          *ngIf="selectedMiniGames.includes(game.id)"
+          class="mini-game-config"
+          [formGroupName]="game.id"
+        >
+          <h4 style="margin: 8px 0 12px 0;">{{ game.title }} Config</h4>
+          <div style="display: flex; flex-wrap: wrap; gap: 16px;">
+            <ng-container *ngFor="let param of getMiniGameConfigKeys(game.id)">
+              <!-- TapMatchingPairsConfig: levels -->
+              <ng-container *ngIf="param === 'levels'; else notLevels">
+                <label>Levels:</label>
+                <div [formGroupName]="'levels'" style="margin-left: 16px;">
+                  <div *ngFor="let levelKey of levelKeys(game.id)">
+                    <div [formGroupName]="levelKey" style="margin-bottom: 8px;">
+                      <strong>{{ levelKey }}</strong>
+                      <div style="display: flex; gap: 8px;">
+                        <label>Min:
+                          <input type="number" formControlName="minNumber" style="width: 60px;" />
+                        </label>
+                        <label>Max:
+                          <input type="number" formControlName="maxNumber" style="width: 60px;" />
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </ng-container>
+              <ng-template #notLevels>
+                <!-- WhatNumberDoYouHearConfig: languages -->
+                <ng-container *ngIf="param === 'languages'; else notLanguages">
+                  <label>Languages:</label>
+                  <div [formGroupName]="param">
+                    <label *ngFor="let lang of testForm.get('miniGameConfigs')?.get(game.id)?.get('languages')?.value">
+                      <input
+                        type="checkbox"
+                        [checked]="testForm.get('miniGameConfigs')?.get(game.id)?.get('languages')?.value.includes(lang)"
+                        (change)="onLanguageCheckboxChange($event, game.id, lang)"
+                      />
+                      {{ lang }}
+                    </label>
+                  </div>
+                </ng-container>
+                <ng-template #notLanguages>
+                  <!-- Default: primitive fields -->
+                  <div>
+                    <label>{{ param }}</label>
+                    <input
+                      type="text"
+                      [formControlName]="param"
+                      style="width: 100%;"
+                    />
+                  </div>
+                </ng-template>
+              </ng-template>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button type="button" class="btn-primary" (click)="saveTest()" [disabled]="testForm.invalid">
+      <span style="display: inline-flex; align-items: center;">
+        <img src="icons/save.svg" alt="Save" width="18" height="18" style="margin-right: 8px;">
+        Save Changes
+      </span>
+    </button>
+
+    <p *ngIf="successMessage" class="success">{{ successMessage }}</p>
+    <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
+  </form>
+</div>
