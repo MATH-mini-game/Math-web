@@ -10,7 +10,8 @@
       </div>
       <ul class="dashboard-list">
         <li *ngFor="let student of students | slice:0:5" class="dashboard-card">
-          <span>{{ student.firstName }} {{ student.lastName }}</span> <span>(Grade {{ student.schoolGrade }})</span>
+          <span>{{ student.firstName }} {{ student.lastName }}</span>
+          <span>(Grade {{ student.schoolGrade }})</span>
         </li>
       </ul>
     </section>
@@ -23,9 +24,26 @@
       </div>
       <ul class="dashboard-list">
         <li *ngFor="let test of tests | slice:0:5" class="dashboard-card">
-          <span>{{ test.testName }}</span> <span>(Grade {{ test.grade }})</span>
+          <span>{{ test.testName }}</span>
+          <span>(Grade {{ test.grade }})</span>
         </li>
       </ul>
     </section>
+  </div>
+
+  <!-- Statistics Section -->
+  <div class="dashboard-stats-row">
+    <div class="dashboard-stat-card">
+      <div class="stat-title">Total Students</div>
+      <div class="stat-value">{{ totalStudents }}</div>
+    </div>
+    <div class="dashboard-stat-card">
+      <div class="stat-title">Total Tests</div>
+      <div class="stat-value">{{ totalTests }}</div>
+    </div>
+    <div class="dashboard-stat-card">
+      <div class="stat-title">Average Questions Solved</div>
+      <div class="stat-value">{{ avgQuestionsSolved }}</div>
+    </div>
   </div>
 </div>

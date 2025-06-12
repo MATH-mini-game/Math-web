@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { Database, ref, get } from '@angular/fire/database';
 import { AuthService } from '../../services/auth.service';
 import { NgFor, NgIf, NgClass, SlicePipe } from '@angular/common';
@@ -19,6 +19,11 @@ export class DashboardHomeComponent implements OnInit {
   students: any[] = [];
   tests: any[] = [];
   loading = true;
+
+  // Statistics
+  totalStudents = 0;
+  totalTests = 0;
+  avgQuestionsSolved = 0;
 
   ngOnInit(): void {
     this.auth.getCurrentUserWithRole().subscribe(async (user) => {
@@ -44,7 +49,21 @@ export class DashboardHomeComponent implements OnInit {
         this.tests = allTests.filter((t: any) => t.teacherId === user.uid);
       }
 
+      this.computeStatistics();
       this.loading = false;
     });
+  }
+
+  computeStatistics() {
+    this.totalStudents = this.students.length;
+    this.totalTests = this.tests.length;
+    if (this.totalStudents > 0) {
+      const totalSolved = this.students
+        .map(s => s.playerProfile?.questionsSolved || 0)
+        .reduce((a, b) => a + b, 0);
+      this.avgQuestionsSolved = Math.round(totalSolved / this.totalStudents);
+    } else {
+      this.avgQuestionsSolved = 0;
+    }
   }
 }
