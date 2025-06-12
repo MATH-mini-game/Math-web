@@ -1,0 +1,31 @@
+<div class="dashboard-home">
+  <h2>Welcome {{ teacher?.firstName }} {{ teacher?.lastName }} to the teacher's dashboard!</h2>
+
+  <div class="dashboard-sections-row">
+    <!-- My Students Section -->
+    <section class="dashboard-section">
+      <div class="section-header">
+        <h3>My Students</h3>
+        <a [routerLink]="['/dashboard/students']" class="section-link btn-secondary">View all students</a>
+      </div>
+      <ul class="dashboard-list">
+        <li *ngFor="let student of students | slice:0:5" class="dashboard-card">
+          <span>{{ student.firstName }} {{ student.lastName }}</span> <span>(Grade {{ student.schoolGrade }})</span>
+        </li>
+      </ul>
+    </section>
+
+    <!-- My Latest Tests Section -->
+    <section class="dashboard-section">
+      <div class="section-header">
+        <h3>My Latest Tests</h3>
+        <a [routerLink]="['/dashboard/tests']" class="section-link btn-secondary">View all tests</a>
+      </div>
+      <ul class="dashboard-list">
+        <li *ngFor="let test of tests | slice:0:5" class="dashboard-card">
+          <span>{{ test.testName }}</span> <span>(Grade {{ test.grade }})</span>
+        </li>
+      </ul>
+    </section>
+  </div>
+</div>

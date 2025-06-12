@@ -13,6 +13,12 @@ export const routes: Routes = [
     data: { breadcrumb: 'Dashboard' },
     children: [
       {
+        path: '',
+        loadComponent: () => import('./pages/dashboard-home/dashboard-home.component').then(m => m.DashboardHomeComponent),
+        canActivate: [AuthGuard],
+        data: { breadcrumb: 'Home' }
+      },
+      {
         path: 'students',
         data: { breadcrumb: 'Students' },
         children: [
