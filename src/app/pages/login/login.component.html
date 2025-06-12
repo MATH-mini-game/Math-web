@@ -9,7 +9,7 @@
       <div style="text-align: right; margin-top: 8px;">
         <a (click)="resetPassword()" style="cursor: pointer; color: #3f51b5;">Forgot Password?</a>
       </div>
-      <button type="submit" [disabled]="loading">Login</button>
+      <button type="submit" [disabled]="loading" class="btn-primary">Login</button>
   
       <p *ngIf="errorMessage" class="error">⚠ {{ errorMessage }}</p>
     </form>

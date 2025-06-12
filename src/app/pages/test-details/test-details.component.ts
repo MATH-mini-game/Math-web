@@ -16,6 +16,13 @@ export class TestDetailsComponent implements OnInit {
   loading = true;
   testId: string | null = null;
 
+  statistics = {
+    assignedStudents: 0,
+    completedStudents: 0,
+    averageScore: 0,
+    passRate: 0
+  };
+
   constructor(
     private route: ActivatedRoute,
     private db: Database
@@ -33,5 +40,43 @@ export class TestDetailsComponent implements OnInit {
     } else {
       this.loading = false;
     }
+    this.computeStatistics();
+  }
+
+  async computeStatistics() {
+    // Example: fetch all students for this grade and their testResults for this test
+    const studentsSnap = await get(ref(this.db, 'users'));
+    let assigned = 0, completed = 0, totalScore = 0, totalMiniGames = 0, passedAll = 0;
+
+    if (studentsSnap.exists()) {
+      const students = studentsSnap.val();
+      for (const uid in students) {
+        const student = students[uid];
+        if (student.role === 'Student' && student.schoolGrade == this.test.grade) {
+          assigned++;
+          const testResult = student.testResults?.[this.test.testId];
+          if (testResult && testResult.miniGames) {
+            completed++;
+            let studentPassedAll = true;
+            for (const mgKey of this.test.miniGameOrder) {
+              const mg = testResult.miniGames[mgKey];
+              if (mg) {
+                totalScore += mg.score || 0;
+                totalMiniGames++;
+                if (!mg.passed) studentPassedAll = false;
+              } else {
+                studentPassedAll = false;
+              }
+            }
+            if (studentPassedAll) passedAll++;
+          }
+        }
+      }
+    }
+
+    this.statistics.assignedStudents = assigned;
+    this.statistics.completedStudents = completed;
+    this.statistics.averageScore = totalMiniGames ? Math.round(totalScore / totalMiniGames) : 0;
+    this.statistics.passRate = assigned ? Math.round((passedAll / assigned) * 100) : 0;
   }
 }

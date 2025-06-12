@@ -1,4 +1,8 @@
 <div class="register-container">
+  <div class="logo">
+
+    <img src="logo.svg" alt="Logo" >
+  </div>
     <h2>Create Your Account</h2>
     <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
       <label>First Name</label>
@@ -16,7 +20,7 @@
       <label>School (Optional)</label>
       <input type="text" formControlName="school">
   
-      <button type="submit" [disabled]="loading">Register</button>
+      <button type="submit" [disabled]="loading" class="btn-primary">Register</button>
   
       <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
     </form>

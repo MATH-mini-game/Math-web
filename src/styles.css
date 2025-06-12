@@ -38,7 +38,7 @@ body {
   --black: #fff;
   --primary-orange: #ff784e;
   --secondary-blue: #4a90e2;
-  background-color: var(--white);
+  /* background-color: var(--white); */
   color: var(--gray-900);
 }
 

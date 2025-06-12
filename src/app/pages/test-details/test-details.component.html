@@ -96,6 +96,29 @@
           </div>
         </div>
       </div>
+
+      <!-- Test Statistics Section -->
+      <div class="test-statistics-section" style="margin-top: 32px;">
+        <h4>Test Statistics</h4>
+        <div class="test-statistics-cards" style="display: flex; flex-wrap: wrap; gap: 20px;">
+          <div class="test-stat-card" style="background: var(--white); border-radius: 20px; padding: 18px 22px; min-width: 180px; flex: 1 1 180px;">
+            <div style="font-weight: bold; color: var(--black);">Assigned Students</div>
+            <div style="font-size: 1.3em; font-weight: 600;">{{ statistics.assignedStudents }}</div>
+          </div>
+          <div class="test-stat-card" style="background: var(--white); border-radius: 20px; padding: 18px 22px; min-width: 180px; flex: 1 1 180px;">
+            <div style="font-weight: bold; color: var(--secondary-blue);">Completed</div>
+            <div style="font-size: 1.3em; font-weight: 600;">{{ statistics.completedStudents }}</div>
+          </div>
+          <div class="test-stat-card" style="background: var(--white); border-radius: 20px; padding: 18px 22px; min-width: 180px; flex: 1 1 180px;">
+            <div style="font-weight: bold; color: var(--black);">Average Score</div>
+            <div style="font-size: 1.3em; font-weight: 600;">{{ statistics.averageScore }}</div>
+          </div>
+          <div class="test-stat-card" style="background: var(--white); border-radius: 20px; padding: 18px 22px; min-width: 180px; flex: 1 1 180px;">
+            <div style="font-weight: bold; color: var(--primary-orange);">Pass Rate</div>
+            <div style="font-size: 1.3em; font-weight: 600;">{{ statistics.passRate }}%</div>
+          </div>
+        </div>
+      </div>
     </ng-container>
     <ng-template #notFound>
       <p>Test not found.</p>
