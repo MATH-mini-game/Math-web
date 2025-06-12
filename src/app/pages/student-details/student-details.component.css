@@ -1,3 +1,8 @@
+.student-details {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
 .student-info-container {
   display: flex;
   justify-content: space-between;
@@ -30,4 +35,125 @@
     gap: 12px;
     height: 100%;
     width: 100%;
+}
+
+.profile-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+.profile-card {
+  background: var(--white);
+  border-radius: 20px;
+  padding: 18px 24px;
+  min-width: 180px;
+  flex: 1 1 180px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.profile-card.accent {
+  background: var(--primary-orange, #ff9800);
+  color: var(--white, #ffffff) !important;
+}
+.profile-card-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--gray-900);
+  margin-bottom: 6px;
+}
+.profile-card.accent .profile-card-title {
+  color: var(--white, #ffffff);
+  font-size: 0.9rem;
+  margin-bottom: 4px;
+}
+.profile-card.accent .profile-card-value {
+  color: var(--gray-100);
+}
+.profile-card-value {
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: var(--gray-900);
+}
+
+.test-results-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+.test-card {
+  background: var(--gray-300);
+  border-radius: 14px;
+  padding: 18px 24px;
+  min-width: 260px;
+  flex: 1 1 260px;
+  margin-bottom: 16px;
+}
+.test-card-header {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--black, #212121);
+  margin-bottom: 10px;
+}
+.mini-games-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.mini-game-card {
+  background: var(--white);
+  border-radius: 8px;
+  padding: 10px 14px;
+  margin-bottom: 6px;
+}
+.mini-game-title {
+  font-weight: 600;
+  color: var(--gray-900);
+  margin-bottom: 2px;
+}
+.mini-game-label {
+  color: var(--gray-900);
+  font-size: 0.95em;
+}
+.mini-game-score {
+  font-weight: 600;
+  color: var(--gray-900);
+}
+.mini-game-passed {
+  color: var(--secondary-blue);
+  font-weight: 600;
+}
+.mini-game-failed {
+  color: var(--primary-orange);
+  font-weight: 600;
+}
+.skill-badge {
+  display: inline-block;
+  background: var(--gray-100);
+  color: var(--gray-900);
+  font-weight: 600;
+  border-radius: 16px;
+  padding: 4px 14px;
+  margin: 2px 6px 2px 0;
+  font-size: 0.98em;
+  letter-spacing: 0.01em;
+}
+.skill-badge-improve {
+  background: var(--gray-100);
+  color: var(--gray-900);
+}
+
+.assigned-tests-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.assigned-test-card {
+  border-radius: 20px;
+  padding: 20px 28px;
+  min-width: 220px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px; /* Optional: adds space between cards */
 }

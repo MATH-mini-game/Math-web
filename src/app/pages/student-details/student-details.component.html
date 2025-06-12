@@ -10,6 +10,10 @@
       <!-- Add more fields as needed -->
     </div>
     <div class="student-info-right">
+      <button class="btn-secondary" (click)="downloadPDF(student)">
+        <img src="icons/download-simple.svg" alt="Download" width="18" height="18" style="margin-right: 8px;">
+        Download PDF
+      </button>
       <button class="btn-secondary" 
         [routerLink]="['/dashboard/students/', student?.uid, 'edit']">
         <img src="icons/note-pencil.svg" alt="Edit" width="18" height="18" style="margin-right: 8px;">
@@ -22,19 +26,105 @@
     </div>
   </div>
 
-  <div class="student-tests-section" *ngIf="assignedTests && assignedTests.length > 0" style="background: var(--white); border-radius: 14px; padding: 24px; margin-top: 32px;">
+  <div class="student-tests-section" *ngIf="assignedTests && assignedTests.length > 0" style="background: var(--white); border-radius: 14px; padding: 24px;">
     <h4 style="margin-top: 0;">Assigned Tests for Grade {{ student?.schoolGrade }}</h4>
-    <ul class="assigned-tests-list" style="list-style: none; padding: 0;">
-      <li *ngFor="let test of assignedTests" style="padding: 12px 0; border-bottom: 1px solid var(--gray-100);">
-        <span style="font-weight: 500;">{{ test.testName }}</span>
-        <span style="margin-left: 24px; color: #666;">
-          Score: <strong>{{ getTestScore(test.testId) }}</strong>
+    <div class="assigned-tests-cards" style="display: flex; flex-wrap: wrap; gap: 8px;">
+      <div
+        *ngFor="let test of assignedTests"
+        class="assigned-test-card"
+        [ngStyle]="{
+          'background': getTestScore(test.testId) !== '-' ? 'var(--gray-100, #f3f4f6)' : 'var(--gray-300, #e0e0e0)'
+        }"
+        
+      >
+        <span style="font-weight: 500; font-size: 1.08em;">{{ test.testName }}</span>
+        <span style="color: var(--gray-700); font-size: 1em;">
+          Score:
+          <strong>
+            {{ getTestScore(test.testId) }}
+          </strong>
         </span>
-      </li>
-    </ul>
+      </div>
+    </div>
   </div>
   <div class="student-tests-section" *ngIf="assignedTests && assignedTests.length === 0">
     <h4 style="margin-top: 40px;">Assigned Tests for Grade {{ student?.schoolGrade }}</h4>
     <p>No tests assigned for this grade.</p>
+  </div>
+
+  <div class="student-profile-section" *ngIf="student?.playerProfile">
+    <h4>Player Profile</h4>
+    <div class="profile-cards">
+      <div class="profile-card accent">
+        <div class="profile-card-title">Math Level</div>
+        <div class="profile-card-value">{{ student.playerProfile.mathLevel }}</div>
+      </div>
+      <div class="profile-card accent">
+        <div class="profile-card-title">Questions Solved</div>
+        <div class="profile-card-value">{{ student.playerProfile.questionsSolved }}</div>
+      </div>
+      <div class="profile-card">
+        <div class="profile-card-title">Unlocked Skills</div>
+        <div class="profile-card-value">
+          <ng-container *ngIf="student.playerProfile.unlockedSkills?.length; else noUnlocked">
+            <span class="skill-badge" *ngFor="let skill of student.playerProfile.unlockedSkills">
+              {{ skill }}
+            </span>
+          </ng-container>
+          <ng-template #noUnlocked>None yet</ng-template>
+        </div>
+      </div>
+      <div class="profile-card">
+        <div class="profile-card-title">Skills to Improve</div>
+        <div class="profile-card-value">
+          <ng-container *ngIf="student.playerProfile.skillsToImprove?.length; else noImprove">
+            <span class="skill-badge skill-badge-improve" *ngFor="let skill of student.playerProfile.skillsToImprove">
+              {{ skill }}
+            </span>
+          </ng-container>
+          <ng-template #noImprove>None</ng-template>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="student-test-results-section" *ngIf="student?.testResults">
+    <h4>Test Results</h4>
+    <div class="test-results-cards">
+      <div class="test-card" *ngFor="let testKey of getTestKeys(student.testResults)">
+        <div class="test-card-header">
+          <strong>Test:</strong> {{ getTestName(testKey) }}
+        </div>
+        <div class="mini-games-list">
+          <div class="mini-game-card" *ngFor="let miniGameKey of getMiniGameKeys(student.testResults[testKey].miniGames)">
+            <div class="mini-game-title">{{ miniGameKey }}</div>
+            <div>
+              <span class="mini-game-label">Score:</span>
+              <span class="mini-game-score">{{ student.testResults[testKey].miniGames[miniGameKey].score }}</span>
+            </div>
+            <div>
+              <span class="mini-game-label">Answered questions:</span>
+              <span class="mini-game-max-score">{{ student.testResults[testKey].miniGames[miniGameKey].answeredQuestions }}</span>
+              <span class="mini-game-max-score">/{{ student.testResults[testKey].miniGames[miniGameKey].numberOfQuestions }}</span>
+
+            </div>
+            <div>
+              <span class="mini-game-label">Mini-Game duration:</span>
+              <span class="mini-game-max-score">{{ student.testResults[testKey].miniGames[miniGameKey].miniGameDuration }}</span>
+
+            </div>
+            <div>
+              <span class="mini-game-label">Passed:</span>
+              <span [ngClass]="{
+                'mini-game-passed': student.testResults[testKey].miniGames[miniGameKey].passed,
+                'mini-game-failed': !student.testResults[testKey].miniGames[miniGameKey].passed
+              }">
+                {{ student.testResults[testKey].miniGames[miniGameKey].passed ? 'Yes' : 'No' }}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

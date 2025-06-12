@@ -1,14 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Database, ref, get, update } from '@angular/fire/database';
-import { DatePipe, NgFor, NgIf } from '@angular/common';
+import { DatePipe, NgClass, NgFor, NgIf, NgStyle } from '@angular/common';
+import jsPDF from 'jspdf';
+import QRCode from 'qrcode';
 
 @Component({
   selector: 'app-student-details',
   templateUrl: './student-details.component.html',
   styleUrls: ['./student-details.component.css'],
   standalone: true,
-  imports: [RouterLink, DatePipe, NgIf, NgFor]
+  imports: [RouterLink, DatePipe, NgIf, NgFor,NgClass,NgStyle]
 })
 export class StudentDetailsComponent implements OnInit {
   student: any = null;
@@ -30,13 +32,13 @@ export class StudentDetailsComponent implements OnInit {
         if (snapshot.exists()) {
           this.student = snapshot.val();
           this.testResults = this.student.testResults || {};
-          // Fetch assigned tests by grade
+          // Fetch assigned tests by grade, EXCLUDE drafts here
           if (this.student?.schoolGrade) {
             get(ref(this.db, `tests`)).then(testsSnap => {
               if (testsSnap.exists()) {
                 const allTests = Object.values(testsSnap.val());
                 this.assignedTests = allTests.filter((test: any) =>
-                  test.grade == this.student.schoolGrade
+                  test.grade == this.student.schoolGrade && !test.isDraft
                 );
               }
             });
@@ -79,5 +81,57 @@ export class StudentDetailsComponent implements OnInit {
         // Handle error (show a message, etc.)
         console.error('Error unlinking student:', error);
       });
+  }
+
+  getTestKeys(testResults: any): string[] {
+    return Object.keys(testResults || {});
+  }
+  getMiniGameKeys(miniGames: any): string[] {
+    return Object.keys(miniGames || {});
+  }
+
+  getTestSummary(student: any) {
+    let totalMiniGames = 0, passedMiniGames = 0, totalScore = 0;
+    if (!student?.testResults) return { totalMiniGames: 0, passedMiniGames: 0, avgScore: 0 };
+    for (const test of Object.values(student.testResults)) {
+      for (const mg of Object.values((test as any).miniGames || {})) {
+        totalMiniGames++;
+        if ((mg as any).passed) passedMiniGames++;
+        totalScore += (mg as any).score || 0;
+      }
+    }
+    return {
+      totalMiniGames,
+      passedMiniGames,
+      avgScore: totalMiniGames ? Math.round(totalScore / totalMiniGames) : 0
+    };
+  }
+
+  getTestName(testKey: string): string {
+    const test = this.assignedTests?.find(t => t.testId === testKey);
+    return test ? test.testName : testKey;
+  }
+
+  async downloadPDF(student: any) {
+    const qrData = JSON.stringify({ uid: student.uid, pin: student.password });
+    const qrUrl = await QRCode.toDataURL(qrData);
+
+    const doc = new jsPDF();
+    doc.setFontSize(16);
+    doc.text("Student QR Code Login", 20, 20);
+
+    doc.setFontSize(12);
+    doc.text(`First Name: ${student.firstName}`, 20, 30);
+    doc.text(`Last Name: ${student.lastName}`, 20, 40);
+    doc.text(`Grade: ${student.schoolGrade}`, 20, 50);
+    doc.text(`Birth Date: ${student.birthday || ''}`, 20, 60);
+    doc.text(`Gender: ${student.gender || ''}`, 20, 70);
+    doc.text(`PIN: ${student.password}`, 20, 80);
+    doc.text("Scan the QR code below to log in:", 20, 100);
+
+    doc.addImage(qrUrl, "PNG", 20, 110, 100, 100);
+
+    const filename = `student-${student.firstName}-${student.lastName}-G${student.schoolGrade}.pdf`;
+    doc.save(filename);
   }
 }
