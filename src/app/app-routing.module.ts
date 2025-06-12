@@ -82,6 +82,18 @@ export const routes: Routes = [
         canActivate: [AuthGuard],
         data: { breadcrumb: 'Settings' }
       },
+      {
+        path: 'roles',
+        loadComponent: () => import('./pages/role-management/role-management.component').then(m => m.RoleManagementComponent),
+        canActivate: [AuthGuard],
+        data: { breadcrumb: 'Role management' }
+      },
+      {
+        path: 'createParent',
+        loadComponent: () => import('./pages/create-parent/create-parent.component').then(m => m.CreateParentComponent),
+        canActivate: [AuthGuard],
+        data: { breadcrumb: 'Create parent' }
+      }
     ]
   },
   { 

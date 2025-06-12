@@ -10,7 +10,7 @@ import QRCode from 'qrcode';
   templateUrl: './student-details.component.html',
   styleUrls: ['./student-details.component.css'],
   standalone: true,
-  imports: [RouterLink, DatePipe, NgIf, NgFor,NgClass,NgStyle]
+  imports: [RouterLink, NgIf, NgFor,NgClass,NgStyle]
 })
 export class StudentDetailsComponent implements OnInit {
   student: any = null;

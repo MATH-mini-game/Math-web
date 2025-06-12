@@ -45,32 +45,41 @@
         <td>
           <ng-container *ngIf="user.role === 'Student'">
             <div *ngIf="!user.linkedTeacherId">
-              <select [(ngModel)]="user.tempTeacherId">
+              <select [(ngModel)]="user.tempTeacherId"
+              style="margin-bottom: 12px;"
+              >
                 <option [ngValue]="null">Select Teacher</option>
                 <option *ngFor="let teacher of teachers" [value]="teacher.uid">
                   {{ teacher.firstName }} {{ teacher.lastName }}
                 </option>
               </select>
               <button
-                class="assign-button"
+                class="assign-button btn-primary"
                 [disabled]="!user.tempTeacherId"
-                (click)="linkStudentToTeacher(user.uid, user.tempTeacherId)">
+                (click)="linkStudentToTeacher(user.uid, user.tempTeacherId)"
+                
+                >
+                
+                <img src="icons/plus.svg" alt="Download" width="18" height="18" style="margin-right: 8px;">
                 Link
               </button>
             </div>
             <div *ngIf="user.linkedTeacherId">
-              <button class="unlink-button" (click)="unlinkStudent(user.uid)">Unlink</button>
+              <button class=" btn-primary" (click)="unlinkStudent(user.uid)">
+                <img src="icons/link-break.svg" alt="Download" width="18" height="18" style="margin-right: 8px;">
+                
+                Unlink</button>
             </div>            
           </ng-container>
         
           <ng-container *ngIf="user.role !== 'Student' && (userRole === 'Administrator' || userRole === 'Principal')">
-            <select [(ngModel)]="user.tempRole">
+            <select [(ngModel)]="user.tempRole" style="margin-bottom: 12px;">
               <option value="Teacher">Teacher</option>
               <option value="Parent">Parent</option>
               <option *ngIf="userRole === 'Principal'" value="Administrator">Administrator</option>
             </select>
             <button
-              class="assign-button"
+              class=" btn-secondary"
               (click)="assignRole(user.uid, user.tempRole)">
               {{ user.role === 'Pending' ? 'Assign Role' : 'Change Role' }}
             </button>

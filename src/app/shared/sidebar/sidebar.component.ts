@@ -36,9 +36,9 @@ export class SidebarComponent {
   updateNavItems() {
     const roleSpecificItems: { [key: string]: NavItem[] } = {
       administrator: [
-        { path: '', icon: 'dashboard', label: 'Dashboard' },
-        { path: 'students', icon: 'people', label: 'Students' },
-        { path: 'tests', icon: 'assignment', label: 'Tests' }
+        // { path: '', icon: 'chart-pie-slice', label: 'Dashboard' },
+        { path: 'roles', icon: 'student', label: 'roles' },
+        { path: 'createParent', icon: 'note', label: 'Create parent' }
       ],
       teacher: [
         { path: '', icon: 'chart-pie-slice', label: 'Dashboard' },

@@ -9,7 +9,7 @@ import { RouterLink } from '@angular/router';
   templateUrl: './dashboard-home.component.html',
   styleUrls: ['./dashboard-home.component.css'],
   standalone: true,
-  imports: [SlicePipe, RouterLink, NgFor, NgIf, NgClass]
+  imports: [SlicePipe, RouterLink, NgFor]
 })
 export class DashboardHomeComponent implements OnInit {
   private db = inject(Database);
